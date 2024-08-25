@@ -87,9 +87,9 @@ const EditUserDetails = ({onClick,user}) => {
     }
 
     const handle = ()=>{
-        setEditable(true)
+        setEditable(!isEditable)
         console.log("edit" + isEditable)
-        if(inputref.current){
+        if(inputref.current && isEditable){
             inputref.current.focus()
         }
     }
@@ -108,12 +108,12 @@ const EditUserDetails = ({onClick,user}) => {
         <div className=' p-4 py-6 m-1 rounded w-full max-w-xs'>
             <div className='mb-5'>
                 <div className='my-1 w-24 flex items-center cursor-pointer ' onClick={handleOpenUploadPhoto} >
-                        {/* <Avatar 
+                        <Avatar 
                             width={80}
                             height={80}
                             imageUrl={data?.profile_pic}
                             name={data?.name}
-                        /> */}
+                        />
                 </div>
                 <input
                     type='file'
@@ -133,9 +133,9 @@ const EditUserDetails = ({onClick,user}) => {
                         className= 'py-1 px-2 focus:outline-primary border-0.5 bg-transparent text-white'
                         style={{width:'15rem'}}
                         ref={inputref}
-                        disabled="false"
+                        disabled={!isEditable}
                     />
-                    <div className='pl-2 flex justify-center items-center w-5 cursor-pointer ' >
+                    <div className='ml-2 flex justify-center items-center w-10 h-10 cursor-pointer border-2 rounded-full active:bg-gray-400 active:text-blue-300' >
                     <FaPencilAlt  onClick={handle} />
                     </div>
                 </div>
