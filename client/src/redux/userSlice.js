@@ -8,7 +8,6 @@ const initialState = {
   token : "",
   login:false,
   onlineUser : [],
-  socketConnection : null
 }
 
 export const userSlice = createSlice({
@@ -34,9 +33,6 @@ export const userSlice = createSlice({
     },
     setOnlineUser : (state,action)=>{
       state.onlineUser = action.payload
-    },
-    setSocketConnection : (state,action)=>{
-      state.socketConnection = action.payload
     }
   },
 })
