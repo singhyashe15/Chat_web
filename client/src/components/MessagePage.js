@@ -12,9 +12,9 @@ import { IoClose} from "react-icons/io5";
 
 import { IoMdSend } from "react-icons/io";
 import moment from 'moment'
-// import getMessage from "../hooks/getmessage"
 import { useSocket } from '../socket/socket';
-// import useConversation from '../zustand/zustand';
+import Custom  from "../css/custom.css"
+
 const MessagePage = () => {
   const params = useParams()
   const { socket} = useSocket();
@@ -159,7 +159,7 @@ const MessagePage = () => {
   return (<>
       
       <div className='bg-no-repeat bg-cover'>
-          <header className='sticky top-0 h-16 bg-slate-600   flex justify-between items-center px-4'>
+          <header className='sticky top-0 h-16 bg-slate-600 flex justify-between items-center px-4'>
               <div className='flex items-center gap-4'>
                   <Link to={"/"} className='lg-hidden'>
                       <FaAngleLeft size={25}/>
@@ -193,12 +193,11 @@ const MessagePage = () => {
           {/***show all message */}
           <section  className='h-[calc(100vh-128px)] overflow-x-hidden overflow-y-scroll scrollbar relative bg-slate-400 bg-opacity-50'>
                   {/**all message show here */}
-                  <div className='flex flex-col gap-2 py-2 mx-2' ref={currentMessage}>
+                  <div className='flex flex-col gap-2 py-2 mx-2 ' ref={currentMessage}>
                     {
                       allMessage.map((msg,index)=>{
                         return(
-                          <div key={index} className={` p-1 py-1 rounded w-fit max-w-[280px] md:max-w-sm lg:max-w-md ${user._id === msg?.msgUserId ? "ml-auto bg-teal-100" : "bg-white"}`}>
-                            <div className='w-full relative'>
+                          <div key={index} className={`m-2 p-2 py-1  rounded-tr-xl rounded-bl-xl w-fit max-w-[280px] md:max-w-sm lg:max-w-md ${user._id === msg?.msgUserId ? "ml-auto bg-teal-100" : "bg-white"}`}>
                             {/* for image */}
                               {
                                 msg?.imageUrl && 
@@ -216,9 +215,11 @@ const MessagePage = () => {
                                     controls
                                   />
                               }
-                            </div>
+
                             <p className='px-2'>{msg.text}</p>
                             <p className='text-xs ml-auto w-fit'>{moment(msg.createdAt).format('hh:mm')}</p>
+                            
+                            
                           </div>
                         )
                       })

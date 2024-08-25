@@ -41,7 +41,7 @@ const SearchUser = ({onClose}) => {
             <div className='bg-white rounded h-14 overflow-hidden flex '>
                 <input 
                     type='text'
-                    placeholder='Search user by name'
+                    placeholder='Search or start a new chart'
                     className='w-full outline-none py-1 h-full px-4'
                     onChange={(e)=>setSearch(e.target.value)}
                     value={search}

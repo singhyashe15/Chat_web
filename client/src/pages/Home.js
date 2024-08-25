@@ -23,12 +23,12 @@ const Home = () => {
         })
         let response = await res.json()
         dispatch(setUser(response?.data))
-        console.log("Us" + JSON.stringify(response?.data))
+
         const data = JSON.stringify(response?.data)
         localStorage.setItem('user',data)
         dispatch(setUser(response?.data))
         const user = JSON.parse(localStorage.getItem('user'))
-        console.log("User",user?._id)
+      
         if(response.data?.logout){
             dispatch(logout())
             navigate("/login")
@@ -45,14 +45,14 @@ const Home = () => {
 
   const basePath = location.pathname === '/'
   return (
-      <div className='grid lg:grid-cols-[300px,1fr] h-screen max-h-screen'>
-        <section className={`bg-white ${!basePath && "hidden"} lg:block`}>
+      <div className='grid lg:grid-cols-[300px,1fr] h-screen max-h-screen '>
+        <section className={`bg-white  ${!basePath && "hidden"} lg:block`}>
            <Sidebar/>
         </section>
 
         {/**message component**/}
-        <section className={`${basePath && "hidden"}`} >
-            <Outlet/>
+        <section className={`${basePath && "hidden"} ml-20 ` } >
+            <Outlet/> 
         </section>
 
         <div className={`justify-center items-center flex-col gap-2  ${basePath ? "lg:flex" : "hidden" }`}>
