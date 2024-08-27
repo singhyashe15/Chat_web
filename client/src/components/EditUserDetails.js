@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Avatar from './Avatar'
 import { FaPencilAlt ,FaUser} from 'react-icons/fa'
+import {BiLogOut} from "react-icons/bi";
 import uploadFile from '../helpers/uploadFile'
 import Divider from './Divider'
 import axios from 'axios'
 import taost from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
-import { setUser } from '../redux/userSlice'
-
+import { setUser,logout } from '../redux/userSlice'
+import { useNavigate } from 'react-router-dom';
 
 const EditUserDetails = ({onClick,user}) => {
     const [data,setData] = useState({
@@ -18,7 +19,7 @@ const EditUserDetails = ({onClick,user}) => {
     const uploadPhotoRef = useRef()
     const inputref = useRef(null)
     const dispatch = useDispatch()
-
+    const navigate = useNavigate()
     useEffect(()=>{
         setData((preve)=>{
             return{
@@ -93,14 +94,20 @@ const EditUserDetails = ({onClick,user}) => {
             inputref.current.focus()
         }
     }
+
+    const handlelogout = ()=>{
+        dispatch(logout())
+        navigate("/login")
+        localStorage.clear()
+    }
   return (
-    <div style={{width:'30rem'}} className='fixed top-30 bottom-5 left-14 bg-gray-700 flex justify-start z-10 rounded-lg'>
-        <div style={{width:'8rem'}}>
+    <div style={{width:'30rem'}} className='relative h-80  bottom-96 left-14 bg-gray-700 flex justify-start z-999 rounded-lg'>
+        <div style={{width:'8rem'}} className=' border-r-2 '>
            <div style={{marginTop: '13.5rem'}} className='mt-10 ml-2 mb-2 flex bg-slate-400 rounded-lg cursor-pointer hover:bg-slate-300'>
-           <div className='flex justify-center items-center ml-4 '>
+           <div className='flex justify-center items-center ml-4'>
            <FaUser/>
            </div>
-           <div className='text-lg ml-2'>
+           <div className='text-lg ml-2 '>
            Profile
            </div>
            </div>
@@ -136,7 +143,7 @@ const EditUserDetails = ({onClick,user}) => {
                         disabled={!isEditable}
                     />
                     <div className='ml-2 flex justify-center items-center w-10 h-10 cursor-pointer border-2 rounded-full active:bg-gray-400 active:text-blue-300' >
-                    <FaPencilAlt  onClick={handle} />
+                    <FaPencilAlt  onClick={()=>handle()} />
                     </div>
                 </div>
 
@@ -149,6 +156,11 @@ const EditUserDetails = ({onClick,user}) => {
                     <button onClick={onClick} className='border-primary border text-white px-4 py-1 rounded hover:bg-slate-400 hover:text-black'>Cancel</button>
                     <button onClick={()=>{handleSubmit()}} className='border-primary text-white bg-primary  border px-4 py-1 rounded hover:bg-slate-400 hover:text-black'>Save</button>
                 </div>
+                <button title='logout' className='w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-slate-200 rounded-full ' onClick={handlelogout}>
+                        <span className='-ml-2'>
+                            <BiLogOut size={20}/>
+                        </span>
+                    </button>
             {/* </form> */}
         </div>
     </div>

@@ -5,7 +5,7 @@ const userDetails = require('../controllers/userdetails')
 // const logout = require('../controllers/logout')
 const updateUserDetails = require('../controllers/updatedetails')
 const searchUser = require('../controllers/search')
-const {handleSendMessage,getMessage} = require("../controllers/messagecontrollers")
+
 const router = express.Router()
 
 //create user api
@@ -21,7 +21,5 @@ router.post('/update-user',updateUserDetails)
 //search user
 router.post("/search-user",searchUser)
 
-router.post("/message/:id",handleSendMessage)
-router.get("/:id",getMessage)
 
 module.exports = router

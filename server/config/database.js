@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const connect = async()=>{
   try{
-    const url = "mongodb://localhost:27017/chatApp"
+    const url = process.env.MONGODB_URL
     await mongoose.connect(url)
     // const connection = mongoose.connection;
     // connection.on('connected',()=>{

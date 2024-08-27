@@ -5,6 +5,7 @@ const http = require("http");
 const {Messagemodel,ConversationModel} = require("../models/conversation")
 const UserModel = require("../models/user")
 const getUserDetailsFromToken =  require("../helpers/token")
+const getConversationMessage = require("../helpers/getconversation")
 const app = express();
 const server = http.createServer(app)
 const io = new Server(server,{
@@ -39,18 +40,17 @@ io.on("connection",async(socket) => { //This event listener is triggered wheneve
         imageUrl : User?.profile_pic,
         online:onlineUser.has(ID)
       }
-      console.log("payload" + JSON.stringify(payload))
       socket.emit('receiver-data',payload)
 
          //get previous message
-         const getConversationMessage = await ConversationModel.findOne({
+         const getConversationmessage = await ConversationModel.findOne({
             "$or" : [
                 { sender : user?._id, receiver : ID },
                 { sender : ID, receiver :  user?._id}
             ]
         }).populate('messages').sort({ updatedAt : -1 })
 
-        socket.emit('new-msg',getConversationMessage?.messages || [])
+        socket.emit('new-msg',getConversationmessage?.messages || [])
     })
 
 
@@ -87,7 +87,7 @@ io.on("connection",async(socket) => { //This event listener is triggered wheneve
             "$push" : { messages : saveMessage?._id }
         })
 
-        const getConversationMessage = await ConversationModel.findOne({
+        const getConversationmessage = await ConversationModel.findOne({
             "$or" : [
                 { sender : data?.sender, receiver : data?.receiver },
                 { sender : data?.receiver, receiver :  data?.sender}
@@ -95,15 +95,20 @@ io.on("connection",async(socket) => { //This event listener is triggered wheneve
         }).populate('messages').sort({ updatedAt : -1 })
 
 
-        io.to(data?.sender).emit('new-msg',getConversationMessage?.messages || [])
-        io.to(data?.receiver).emit('new-msg',getConversationMessage?.messages || [])
+        io.to(data?.sender).emit('new-msg',getConversationmessage?.messages || [])
+        io.to(data?.receiver).emit('new-msg',getConversationmessage?.messages || [])
 
         //send conversation
-        // const conversationSender = await getConversation(data?.sender)
-        // const conversationReceiver = await getConversation(data?.receiver)
+        const conversationSender = await getConversationMessage(data?.sender)
+        console.log("conver" + conversationSender)
+        const conversationReceiver = await getConversationMessage(data?.receiver)
 
         // io.to(data?.sender).emit('conversation',conversationSender)
         // io.to(data?.receiver).emit('conversation',conversationReceiver)
+
+        socket.on('seen',async(id)=>{
+          
+        })
     })
   socket.on('disconnect',()=>{
     console.log("Disconnected user" + socket.id)

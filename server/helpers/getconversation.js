@@ -9,29 +9,31 @@ const getConversation = async(currentUserId)=>{
                 { receiver : currentUserId}
             ]
         }).sort({  updatedAt : -1 }).populate('messages').populate('sender').populate('receiver')
-        console.log((currentUserConversation))
-        const conversation = currentUserConversation.messages.map((conv)=>{
-            // const countUnseenMsg = conv.reduce((preve,curr) => {
-            //     const msgByUserId = curr?.msgUserId?.toString()
+        console.log(("curr" + currentUserConversation))
+        // let prev = 0;
+        // const conversation = currentUserConversation?.map((conv)=>{
+        //     const countUnseenMsg = conv?.messages?.reduce((prev,curr) => {
+        //         const msgByUserId = curr?.msgUserId?.toString()
 
-            //     if(msgByUserId !== currentUserId){
-            //         return  preve + (curr?.seen ? 0 : 1)
-            //     }else{
-            //         return preve
-            //     }
+        //         if(msgByUserId !== currentUserId){    
+        //             return prev + (curr?.seen.toLowerCse() == 'true' ? 0 : 1)
+        //         }else{
+        //             return prev
+        //         }
              
-            // },0)
-            console.log(conv)
-            return{
-                _id : conv?._id,
-                sender : conv?.sender,
-                receiver : conv?.receiver,
-                // unseenMsg : countUnseenMsg,
-                lastMsg : conv.messages[conv?.messages?.length - 1]
-            }
-        })
+        //     },0)
+        //     // console.log(conv)
+        //     return{
+        //         _id : conv?._id,
+        //         sender : conv?.sender,
+        //         receiver : conv?.receiver,
+        //         // unseenMsg : countUnseenMsg,
+        //         lastMsg : conv.messages[conv?.messages?.length - 1]
+        //     }
+        //     console.log("msg" + prev)
+        // })
 
-        return conversation
+        // return conversation
     }else{
         return []
     }

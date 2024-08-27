@@ -4,7 +4,7 @@ function App() {
   return (
     <>
       <Toaster/>
-       {/* <main className='bg-black-100' > */}
+       {/* <main className='bg-slate-700' style={{'height':'45rem'}} > */}
         <Outlet/>
        {/* </main> */}
     </>

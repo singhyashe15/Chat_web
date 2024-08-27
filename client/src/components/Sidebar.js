@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { IoChatbubbleEllipses } from "react-icons/io5";
 // import { FaUserPlus } from "react-icons/fa";
 import { Await, NavLink, useNavigate } from 'react-router-dom';
-import { BiLogOut } from "react-icons/bi";
 import Avatar from './Avatar'
 import { useDispatch, useSelector } from 'react-redux';
 import EditUserDetails from './EditUserDetails';
@@ -11,10 +10,9 @@ import Loading from './Loading';
 import UserSearchCard from './UserSearchCard';
 import toast from 'react-hot-toast'
 import axios from 'axios';
-import { FaImage } from "react-icons/fa6";
-import { FaVideo } from "react-icons/fa6";
+import { FaImage,FaVideo  } from "react-icons/fa6";
+import { FaBars } from 'react-icons/fa';
 import { IoClose } from "react-icons/io5";
-import { logout } from '../redux/userSlice';
 import { useSocket } from '../socket/socket';
 import Custom from "../css/custom.css"
 const Sidebar = () => {
@@ -80,27 +78,25 @@ const Sidebar = () => {
         handleSearchUser()
     },[search])
 
-    const handleLogout = ()=>{
-        dispatch(logout())
-        navigate("/login")
-        localStorage.clear()
-    }
+   
     const setclose = ()=>{
         setSearchUser([])
         // setSearch(" ")
     }
   return (
     <div  className='w-full lg:w-96 lg:h-full grid grid-cols-[50px,1fr] bg-slate-600 fixed'>
-            <div className='bg-slate-400 w-15  rounded-tr-lg rounded-br-lg py-5 text-slate-600 flex flex-col justify-evenly'>
-                
+            <div className='bg-slate-400 w-15  rounded-tr-lg rounded-br-lg py-5 text-slate-600 flex flex-col justify-between'>
+                <div className='grid gap-8'>
+                    <button className='mx-auto p-2 text-black rounded-lg  hover:bg-slate-200'>
+                        <FaBars/>
+                    </button>
                     <NavLink className={({isActive})=>`w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-slate-200 rounded-full ${isActive && "bg-slate-200"}`} title='chat'>
                         <IoChatbubbleEllipses size={20} />
                     </NavLink>
+                </div>
 
                 
-
-                <div className='flex flex-col justify-between items-center'>
-                    <button className='mx-auto ' title={User.name} onClick={()=>setEditUserOpen(true)}>
+                    <button className='mx-auto mb-16' title={User.name} onClick={()=>setEditUserOpen(prev => !prev)}>
                         <Avatar
                             width={40}
                             height={40}
@@ -109,12 +105,7 @@ const Sidebar = () => {
                             userId={User?._id}
                         />
                     </button>
-                    <button title='logout' className='w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-slate-200 rounded-full' onClick={handleLogout}>
-                        <span className='-ml-2'>
-                            <BiLogOut size={20}/>
-                        </span>
-                    </button>
-                </div>
+                   
             </div>
 
             <div className='lg:w-80 sm:w-96'>

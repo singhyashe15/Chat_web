@@ -5,10 +5,9 @@ const jwt = require('jsonwebtoken')
 async function checkPassword(request,response){
     try {
         const { email,password } = request.body
-        console.log(email)
+        
         const user = await UserModel.findOne({email:email})
-        console.log(user)
-        console.log(password)
+       
         const verifyPassword = await bcryptjs.compare(password,user.password)
         if(!verifyPassword){
             return response.status(400).json({
@@ -22,10 +21,9 @@ async function checkPassword(request,response){
             email : user.email,
         }
         
-        const jwtsecret = "7a9e6f8c4b2d1c3f5a7b6e9f0d1e4a5c"
+        const jwtsecret = process.env.JWT_SECRET_KEY
 
         const token =  jwt.sign(tokenData,jwtsecret,{ expiresIn : '2d'})
-        console.log("TOken " + token)
         const cookieOptions = {
             http : true,
             secure : true,

@@ -3,23 +3,20 @@ import { useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import Avatar from './Avatar'
 import { HiDotsVertical } from "react-icons/hi";
-import { FaAngleLeft } from "react-icons/fa6";
 import { FaPaperclip } from "react-icons/fa";
-import { FaImage } from "react-icons/fa6";
-import { FaVideo } from "react-icons/fa6";
+import { FaImage,FaVideo,FaAngleLeft  } from "react-icons/fa6";
 import uploadFile from '../helpers/uploadFile';
 import { IoClose} from "react-icons/io5";
-
 import { IoMdSend } from "react-icons/io";
 import moment from 'moment'
 import { useSocket } from '../socket/socket';
-import Custom  from "../css/custom.css"
+
 
 const MessagePage = () => {
   const params = useParams()
   const { socket} = useSocket();
   const user = useSelector(state => state?.user)
-  // const { messages, setMessages, selectedConversation } = useConversation();
+
 
   const [dataUser,setDataUser] = useState({
     name : "",
@@ -37,7 +34,6 @@ const MessagePage = () => {
 
   const [allMessage,setAllMessage] = useState([])
   const currentMessage = useRef(null)
-  // const {Message,loading} = getMessage()
   useEffect(()=>{
       if(currentMessage.current){
           currentMessage.current.scrollIntoView({behavior : 'smooth', block : 'end'})
@@ -50,7 +46,6 @@ const MessagePage = () => {
 
   const handleUploadImage = async(e)=>{
     const file = e.target.files[0]
-
     // setLoading(true)
     const uploadPhoto = await uploadFile(file)
     // setLoading(false)
@@ -133,7 +128,6 @@ const MessagePage = () => {
   const handleSendMessage =async (e)=>{
     e.preventDefault()
     
-    // const URL = `${process.env.REACT_APP_BACKEND_URL}/api/message/${params.userId}`
     if(message.text || message.imageUrl || message.videoUrl){
       if(socket){
         console.log("Enter")
@@ -231,15 +225,20 @@ const MessagePage = () => {
                   {
                     message.imageUrl && (
                       <div className='w-full h-full sticky bottom-0 bg-slate-700 bg-opacity-30 flex justify-center items-center rounded overflow-hidden'>
-                        <div className='w-fit p-2 absolute top-0 right-0 cursor-pointer hover:text-red-600' onClick={handleClearUploadImage}>
-                            <IoClose size={30}/>
-                        </div>
-                        <div className='bg-white p-3'>
+                        <div className='bg-gray-500 p-3'>
                             <img
                               src={message.imageUrl}
                               alt='uploadImage'
                               className='aspect-square w-full h-full max-w-sm m-2 object-scale-down'
                             />
+                            <div className='flex justify-evenly'>
+                              <button className='p-1 py-1 bg-green-400 text-blue-400 rounded-lg text-center hover:bg-red-600' onClick={handleClearUploadImage}>
+                                  <IoClose size={28}/>
+                              </button>
+                              <button className= 'p-2 bg-green-400 text-blue-400 rounded-lg text-center  hover:text-blue-600 '  onClick={handleSendMessage}>
+                                  <IoMdSend size={28}/>
+                              </button>
+                            </div>
                         </div>
                       </div>
                     )
@@ -249,10 +248,8 @@ const MessagePage = () => {
                   {
                     message.videoUrl && (
                       <div className='w-full h-full sticky bottom-0 bg-slate-700 bg-opacity-30 flex justify-center items-center rounded overflow-hidden'>
-                        <div className='w-fit p-2 absolute top-0 right-0 cursor-pointer hover:text-red-600' onClick={handleClearUploadVideo}>
-                            <IoClose size={30}/>
-                        </div>
-                        <div className='bg-white p-3'>
+
+                        <div className='bg-gray-500 p-3'>
                             <video 
                               src={message.videoUrl} 
                               className='aspect-square w-full h-full max-w-sm m-2 object-scale-down'
@@ -260,6 +257,14 @@ const MessagePage = () => {
                               muted
                               autoPlay
                             />
+                             <div className='flex justify-evenly'>
+                              <button className='p-1 py-1 bg-green-400 text-blue-400 rounded-lg text-center hover:bg-red-600' onClick={handleClearUploadImage}>
+                                  <IoClose size={28}/>
+                              </button>
+                              <button className= 'p-2 bg-green-400 text-blue-400 rounded-lg text-center  hover:text-blue-600 '  onClick={handleSendMessage}>
+                                  <IoMdSend size={28}/>
+                              </button>
+                            </div>
                         </div>
                       </div>
                     )

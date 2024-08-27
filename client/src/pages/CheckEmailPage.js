@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import { PiUserCircle } from "react-icons/pi";
 import { useDispatch } from 'react-redux';
 import { setToken, setUser } from '../redux/userSlice';
+import login from "../assets/login.jpg"
 const CheckEmailPage = () => {
   const [data,setData] = useState({
     email : "",password:""
@@ -38,7 +39,7 @@ const CheckEmailPage = () => {
           credentials:'include'
         })
         const res = await response.json();
-        console.log(res)
+       
         toast.success(res.message)
         if(res.success){
           dispatch(setToken(res?.token))
@@ -56,8 +57,8 @@ const CheckEmailPage = () => {
 
 
   return (
-    <div className='mt-5'>
-        <div className='bg-white w-full max-w-md border-2 border-blue-900 rounded-[3.25rem] overflow-hidden p-4 mx-auto'>
+    <div className='mt-2' >
+        <div className='h-96 w-full max-w-md border-2 border-blue-900 rounded-[3.25rem] overflow-hidden p-4 mx-auto'>
 
             <div className='w-fit mx-auto mb-2'>
                 <PiUserCircle
@@ -65,7 +66,7 @@ const CheckEmailPage = () => {
                 />
             </div>
           <h3 className='font-semibold'>Welcome to Chat app!</h3>
-          <form className='grid gap-4 mt-3' onSubmit={handleSubmit}>
+          <form className='grid gap-4 mt-3 ' onSubmit={handleSubmit}>
               <div className='flex flex-col gap-1'>
                 <label htmlFor='email' className='font-semibold'>Email :</label>
                 <input
@@ -73,7 +74,7 @@ const CheckEmailPage = () => {
                   id='email'
                   name='email'
                   placeholder='enter your email' 
-                  className='bg-slate-100 px-2 py-1 border-2 focus:outline-primary'
+                  className='bg-slate-100 px-2 py-1 border-2 focus:outline-primary bg-transparent'
                   value={data.email}
                   onChange={handleOnChange}
                   required
@@ -81,13 +82,13 @@ const CheckEmailPage = () => {
                 />
               </div>
               <div className='flex flex-col gap-1'>
-                <label htmlFor='password'>Password :</label>
+                <label htmlFor='password' className='font-semibold'>Password :</label>
                 <input
                   type='password'
                   id='password'
                   name='password'
                   placeholder='enter your password' 
-                  className='bg-slate-100 px-2 py-1 border-2 focus:outline-primary'
+                  className='bg-slate-100 px-2 py-1 border-2 focus:outline-primary bg-transparent'
                   value={data.password}
                   onChange={handleOnChange}
                   required
