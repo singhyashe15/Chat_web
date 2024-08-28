@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const UserSearchCard = ({user}) => 
 {
   return (
-    <Link to={"/"+user?._id}  className='h-16 flex items-center gap-3 m-2 p-2 lg:p-4  hover:bg-slate-700 rounded cursor-pointer'>
+    <Link to={"/"+user?._id}  className='h-16 flex items-center gap-3 m-2 p-2 lg:p-4  hover:bg-slate-700 rounded-full cursor-pointer'>
         <div>
             <Avatar
                 width={45}

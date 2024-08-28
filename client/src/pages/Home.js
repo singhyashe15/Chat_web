@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { logout, setOnlineUser, setUser } from '../redux/userSlice'
+import { logout,setUser } from '../redux/userSlice'
 import Sidebar from '../components/Sidebar'
 import logo from '../assets/chatwave.jpg'
-import { useSocket} from "../socket/socket"
 const Home = () => {
-  // const login = useSelector(state => state.login)
+ 
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const location = useLocation()
-  const socketConnection = useSocket();
+
   const fetchUserDetails = async()=>{
     const URL = `${process.env.REACT_APP_BACKEND_URL}/api/user`
     try {
@@ -26,8 +25,6 @@ const Home = () => {
 
         const data = JSON.stringify(response?.data)
         localStorage.setItem('user',data)
-        dispatch(setUser(response?.data))
-        const user = JSON.parse(localStorage.getItem('user'))
       
         if(response.data?.logout){
             dispatch(logout())
@@ -45,13 +42,13 @@ const Home = () => {
 
   const basePath = location.pathname === '/'
   return (
-      <div className='grid lg:grid-cols-[300px,1fr] h-screen max-h-screen '>
+      <div className='grid lg:grid-cols-[382px,1fr] h-screen max-h-screen '>
         <section className={`bg-white  ${!basePath && "hidden"} lg:block`}>
            <Sidebar/>
         </section>
 
         {/**message component**/}
-        <section className={`${basePath && "hidden"} ml-20 ` } >
+        <section className={`${basePath && "hidden"} ` } >
             <Outlet/> 
         </section>
 

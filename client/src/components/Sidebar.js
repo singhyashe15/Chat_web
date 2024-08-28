@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { IoChatbubbleEllipses } from "react-icons/io5";
-// import { FaUserPlus } from "react-icons/fa";
-import { Await, NavLink, useNavigate } from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 import Avatar from './Avatar'
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import EditUserDetails from './EditUserDetails';
 import { FiArrowUpLeft } from "react-icons/fi";
 import Loading from './Loading';
@@ -23,10 +22,9 @@ const Sidebar = () => {
     const [searchUser,setSearchUser] = useState([])
     const [loading,setLoading] = useState(false)
     const  [closed,setclosed] = useState(false)
-    // const [openSearchUser,setOpenSearchUser] = useState(false)
+   
     const { socket} = useSocket();
-    // const dispatch = useDispatch()
-    // const navigate = useNavigate()
+    const inputref = useRef()
    
     useEffect(()=>{
         if(socket){
@@ -81,9 +79,8 @@ const Sidebar = () => {
 
    
     const setclose = ()=>{
-        setclosed(prev => !prev)
+        
         setSearchUser([])
-        // setSearch(" ")
     }
   return (
     <div  className='w-full lg:w-96 lg:h-full grid grid-cols-[50px,1fr] bg-slate-600 fixed'>
@@ -106,9 +103,8 @@ const Sidebar = () => {
                             imageUrl={User?.profile_pic}
                             userId={User?._id}
                         />
-                    </button>
-                   
-            </div>
+                    </button>  
+            </div> 
 
             <div className='lg:w-80 sm:w-96'>
                 <div className='h-16 flex items-center'>
@@ -120,16 +116,18 @@ const Sidebar = () => {
                     placeholder='Search' 
                     className='w-full h-10 ml-1 my-2 p-5 rounded outline-none font-semibold relative' 
                     onChange={(e)=>setSearch(e.target.value)}
-                    value={search}    
+                    value={search}
+                    ref={inputref}   
                />
                <button onClick={()=>setclose()} className='absolute top-5 right-2'>
                 <IoClose/>
             </button>
                 </div>
-                 {/* //[calc(100vh-65px)] */}
+                 
                 <div className='Custom h-[calc(100vh-65px)] overflow-y-auto overflow-hidden scrollbar'>
-                     {  
-                        searchUser.length !==0 && !loading && (
+                    {  
+                        searchUser.length !==0 && !loading && allUser.length == 0 && (
+                        
                             searchUser.map((user,index)=>{
                                 return(
                                     user._id !== User._id &&
@@ -138,7 +136,7 @@ const Sidebar = () => {
                             })
                         )
                     }
-                    {/* {
+                    {
                         allUser.length === 0 && (
                             <div className='mt-12'>
                                 <div className='flex justify-center items-center my-4 text-slate-500'>
@@ -149,12 +147,12 @@ const Sidebar = () => {
                                 <p className='text-lg text-center text-slate-400'>Explore users to start a conversation with.</p>    
                             </div>
                         )
-                    } */}
+                    }
 
                     {
-                      closed &&  allUser.map((conv,index)=>{
+                       allUser.map((conv,index)=>{
                             return(
-                                <NavLink to={"/"+conv?.userDetails?._id} key={conv?._id} className='flex items-center gap-2 py-3 px-2 border border-transparent hover:border-primary rounded hover:bg-slate-100 cursor-pointer'>
+                                <NavLink to={"/"+conv?.userDetails?._id} key={conv?._id} className='flex items-center gap-2 m-2 py-3 px-2 border border-transparent hover:border-primary rounded-full hover:bg-slate-500 cursor-pointer'>
                                     <div>
                                         <Avatar
                                             imageUrl={conv?.userDetails?.profile_pic}
@@ -165,7 +163,7 @@ const Sidebar = () => {
                                     </div>
                                     <div>
                                         <h3 className='text-ellipsis line-clamp-1 font-semibold text-base'>{conv?.userDetails?.name}</h3>
-                                        <div className='text-slate-500 text-xs flex items-center gap-1'>
+                                        <div className='text-white text-xs flex items-center gap-1'>
                                             <div className='flex items-center gap-1'>
                                                 {
                                                     conv?.lastMsg?.imageUrl && (
@@ -199,15 +197,11 @@ const Sidebar = () => {
                 </div>
             </div>
 
-            {/**edit user details*/}
             {
-                editUserOpen && (
-                    <EditUserDetails onClick={()=>setEditUserOpen((prev)=> !prev)} user={User}/>
-                )
-            }
-
-            {/**search user */}
-
+                    editUserOpen && (
+                        <EditUserDetails onClick={()=>setEditUserOpen((prev)=> !prev)} user={User}/>
+                    )
+                }
     </div>
   )
 }

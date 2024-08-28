@@ -17,20 +17,6 @@ const Avatar = ({userId,name,imageUrl,width,height}) => {
       console.log(splitName)
     }
 
-    const bgColor = [
-      'bg-slate-200',
-      'bg-teal-200',
-      'bg-red-200',
-      'bg-green-200',
-      'bg-yellow-200',
-      'bg-gray-200',
-      "bg-cyan-200",
-      "bg-sky-200",
-      "bg-blue-200"
-    ]
-
-    const randomNumber = Math.floor(Math.random() * 9)
-
     const isOnline = onlineUser.includes(userId)
   return (
     <div className={`text-slate-800  rounded-full font-bold relative`} style={{width : width+"px", height : height+"px" }}>
@@ -45,7 +31,7 @@ const Avatar = ({userId,name,imageUrl,width,height}) => {
                 />
             ) : (
                 name ? (
-                    <div  style={{width : width+"px", height : height+"px" }} className={`overflow-hidden rounded-full flex justify-center items-center text-lg ${bgColor[randomNumber]}`}>
+                    <div  style={{width : width+"px", height : height+"px" }} className={`overflow-hidden rounded-full flex justify-center items-center text-lg bg-gray-200`}>
                         {avatarName}
                     </div>
                 ) :(

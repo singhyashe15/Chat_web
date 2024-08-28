@@ -89,7 +89,7 @@ const EditUserDetails = ({onClick,user}) => {
 
     const handle = ()=>{
         setEditable(!isEditable)
-        console.log("edit" + isEditable)
+       
         if(inputref.current && isEditable){
             inputref.current.focus()
         }
@@ -101,17 +101,7 @@ const EditUserDetails = ({onClick,user}) => {
         localStorage.clear()
     }
   return (
-    <div style={{width:'30rem'}} className='relative h-80  bottom-96 left-14 bg-gray-700 flex justify-start z-999 rounded-lg'>
-        <div style={{width:'8rem'}} className=' border-r-2 '>
-           <div style={{marginTop: '13.5rem'}} className='mt-10 ml-2 mb-2 flex bg-slate-400 rounded-lg cursor-pointer hover:bg-slate-300'>
-           <div className='flex justify-center items-center ml-4'>
-           <FaUser/>
-           </div>
-           <div className='text-lg ml-2 '>
-           Profile
-           </div>
-           </div>
-        </div>
+    <div  className='mb-10 ml-14 w-full bg-gray-700 flex rounded-lg'>
         <div className=' p-4 py-6 m-1 rounded w-full max-w-xs'>
             <div className='mb-5'>
                 <div className='my-1 w-24 flex items-center cursor-pointer ' onClick={handleOpenUploadPhoto} >

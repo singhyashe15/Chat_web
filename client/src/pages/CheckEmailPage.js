@@ -51,13 +51,14 @@ const CheckEmailPage = () => {
           navigate('/')
         }
     } catch (error) {
+        console.log(error)
         toast.error(error?.res?.message)
     }
   }
 
 
   return (
-    <div className='mt-2' >
+    <div className='mt-5 mx-1' >
         <div className='h-96 w-full max-w-md border-2 border-blue-900 rounded-[3.25rem] overflow-hidden p-4 mx-auto'>
 
             <div className='w-fit mx-auto mb-2'>
@@ -96,7 +97,7 @@ const CheckEmailPage = () => {
                 />
               </div>
               <button
-               className='bg-blue-500 text-lg  px-4 py-1 hover:bg-secondary rounded mt-2 font-bold text-black leading-relaxed tracking-wide'>
+               className='bg-blue-500 text-lg  px-4 py-1 hover:bg-blue-300 rounded-full mt-2 font-bold text-black leading-relaxed tracking-wide'>
                 Let's Start
               </button>
           </form>

@@ -81,18 +81,18 @@ const RegisterPage = () => {
         toast.error(error?.res?.data?.message)
         console.log(error)
     }
-    // console.log('data',data)
+   
   }
 
 
   return (
-    <div className='mt-5 flex flex-col lg:flex-row justify-evenly items-center'>
+    <div className='mt-20  h-auto flex flex-col lg:flex-row justify-evenly items-center ' >
       <div>
           <img
             src={chatwave} //logo
-            width={250}
+            width={100}
             alt='logo'
-            className='w-40 sm:w-48 md:w-64 lg:w-80'
+            className='w-40 sm:w-48 md:w-64 lg:w-80 '
             />
       </div>
         <div className='bg-white w-full max-w-md  rounded-[4.25rem] overflow-hidden p-4 m-8 border-2 border-blue-900'>
