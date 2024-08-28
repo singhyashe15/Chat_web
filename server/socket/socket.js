@@ -28,8 +28,7 @@ io.on("connection",async(socket) => { //This event listener is triggered wheneve
   socket.join(user?._id?.toString())
   onlineUser.add(user?._id?.toString())
   io.emit('onlineUser',Array.from(onlineUser))
-  const u  = new UserModel()
-  console.log(u + "oo")
+ 
   socket.on('receiver-id',async (ID)=>{
     console.log("idr" + ID)
       const User = await UserModel.findById(ID).select('-password')
@@ -83,7 +82,7 @@ io.on("connection",async(socket) => { //This event listener is triggered wheneve
         })
         const saveMessage = await message.save()
 
-        const updateConversation = await ConversationModel.updateOne({ _id : conversation?._id },{
+        await ConversationModel.updateOne({ _id : conversation?._id },{
             "$push" : { messages : saveMessage?._id }
         })
 
@@ -100,12 +99,15 @@ io.on("connection",async(socket) => { //This event listener is triggered wheneve
 
         //send conversation
         const conversationSender = await getConversationMessage(data?.sender)
-        console.log("conver" + conversationSender)
+        console.log("conver" + JSON.stringify(conversationSender))
         const conversationReceiver = await getConversationMessage(data?.receiver)
-
-        // io.to(data?.sender).emit('conversation',conversationSender)
-        // io.to(data?.receiver).emit('conversation',conversationReceiver)
-
+        console.log("conver_rec" + JSON.stringify(conversationReceiver))
+        io.to(data?.sender).emit('conversation',conversationSender)
+        io.to(data?.receiver).emit('conversation',conversationReceiver)
+        socket.on('sidebar',async(id)=>{
+            const conversation = await getConversationMessage(id)
+            socket.emit('conversation',conversation)
+        })
         socket.on('seen',async(id)=>{
           
         })

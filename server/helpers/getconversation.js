@@ -3,37 +3,40 @@ const { ConversationModel } = require("../models/conversation")
 const getConversation = async(currentUserId)=>{
     console.log(currentUserId)
     if(currentUserId){
-        const currentUserConversation = await ConversationModel.findOne({
+        const currentUserConversation = await ConversationModel.find({
             "$or" : [
                 { sender : currentUserId },
                 { receiver : currentUserId}
             ]
         }).sort({  updatedAt : -1 }).populate('messages').populate('sender').populate('receiver')
-        console.log(("curr" + currentUserConversation))
+        // console.log(("curr" + currentUserConversation))
         // let prev = 0;
-        // const conversation = currentUserConversation?.map((conv)=>{
-        //     const countUnseenMsg = conv?.messages?.reduce((prev,curr) => {
-        //         const msgByUserId = curr?.msgUserId?.toString()
+        const conversation = currentUserConversation?.map((conv)=>{
+            const countUnseenMsg = conv?.messages?.reduce((prev,curr) => {
+                const msgByUserId = curr?.msgUserId?.toString()
 
-        //         if(msgByUserId !== currentUserId){    
-        //             return prev + (curr?.seen.toLowerCse() == 'true' ? 0 : 1)
-        //         }else{
-        //             return prev
-        //         }
+                if(msgByUserId === currentUserId){    
+                    let seen = curr?.seen
+                    console.log("seen" + seen)
+                    return prev + (seen === 'true' ? 1 : 0)
+                }else{
+                    return prev
+                }
              
-        //     },0)
-        //     // console.log(conv)
-        //     return{
-        //         _id : conv?._id,
-        //         sender : conv?.sender,
-        //         receiver : conv?.receiver,
-        //         // unseenMsg : countUnseenMsg,
-        //         lastMsg : conv.messages[conv?.messages?.length - 1]
-        //     }
+            },0)
+            // console.log(conv)
+            return{
+                _id : conv?._id,
+                sender : conv?.sender,
+                receiver : conv?.receiver,
+                unseenMsg : countUnseenMsg,
+                lastMsg : conv.messages[conv?.messages?.length - 1]
+            }
         //     console.log("msg" + prev)
-        // })
+            // console.log("msg" + conv)
+        })
 
-        // return conversation
+        return conversation
     }else{
         return []
     }
