@@ -93,12 +93,10 @@ const MessagePage = () => {
 
   useEffect(()=>{
       if(socket){
-        console.log("Entered")
-        console.log("id" + params.userId)
+        
         socket.emit('receiver-id',params.userId)
 
         socket.on('receiver-data',(data)=>{
-          console.log("d" + data)
           setDataUser(data)
         })
 
@@ -106,7 +104,6 @@ const MessagePage = () => {
         
         socket.on('new-msg',(data)=>{
           setAllMessage(data)
-          console.log(data)
         })
       }else{
         console.log(socket)

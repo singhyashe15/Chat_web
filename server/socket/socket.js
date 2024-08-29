@@ -24,11 +24,13 @@ io.on("connection",async(socket) => { //This event listener is triggered wheneve
   const token = socket.handshake.auth.token;
   // sender details
   const user = await getUserDetailsFromToken(token)
-  //create a room
+
+  //creating  a room
   socket.join(user?._id?.toString())
   onlineUser.add(user?._id?.toString())
   io.emit('onlineUser',Array.from(onlineUser))
  
+  // receiver-details
   socket.on('receiver-id',async (ID)=>{
     console.log("idr" + ID)
       const User = await UserModel.findById(ID).select('-password')
@@ -99,17 +101,42 @@ io.on("connection",async(socket) => { //This event listener is triggered wheneve
 
         //send conversation
         const conversationSender = await getConversationMessage(data?.sender)
-        console.log("conver" + JSON.stringify(conversationSender))
+       
         const conversationReceiver = await getConversationMessage(data?.receiver)
-        console.log("conver_rec" + JSON.stringify(conversationReceiver))
+       
         io.to(data?.sender).emit('conversation',conversationSender)
         io.to(data?.receiver).emit('conversation',conversationReceiver)
+
         socket.on('sidebar',async(id)=>{
             const conversation = await getConversationMessage(id)
             socket.emit('conversation',conversation)
         })
+
         socket.on('seen',async(id)=>{
+          console.log("ids" + id)
+            const conversation = await ConversationModel.findOne({
+              "$or":[
+                {sender:user?._id,receiver:id},
+                {sender:id , receiver:user?._id}
+              ]
+            })
+
+            const conv_id = conversation?.messages || []
+            console.log("i" + conv_id)
+            const update_msg = await Messagemodel.updateMany(
+              {_id : {"$in" : conv_id} , msgUserId : id},
+              {
+               "$set" : {seen : true}
+              }
+            )
+            
+              const conversationSender = await getConversationMessage(user?._id.toString())
+       
+            const conversationReceiver = await getConversationMessage(id)
           
+            io.to(user?._id).emit('conversation',conversationSender)
+            io.to(id).emit('conversation',conversationReceiver)
+            
         })
     })
   socket.on('disconnect',()=>{

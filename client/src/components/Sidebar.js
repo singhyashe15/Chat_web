@@ -126,8 +126,7 @@ const Sidebar = () => {
                  
                 <div className='Custom h-[calc(100vh-65px)] overflow-y-auto overflow-hidden scrollbar'>
                     {  
-                        searchUser.length !==0 && !loading && allUser.length == 0 && (
-                        
+                        searchUser.length !== 0 && !loading  && (
                             searchUser.map((user,index)=>{
                                 return(
                                     user._id !== User._id &&
@@ -187,7 +186,7 @@ const Sidebar = () => {
                                     </div>
                                     {
                                         Boolean(conv?.unseenMsg) && (
-                                            <p className='text-xs w-6 h-6 flex justify-center items-center ml-auto p-1 bg-primary text-black font-semibold rounded-full'>{conv?.unseenMsg}</p>
+                                            <p className='text-xs w-6 h-6 flex justify-center items-center ml-auto p-1 bg-green-400 text-black font-semibold rounded-full'>{conv?.unseenMsg}</p>
                                         )
                                     }
                                 </NavLink>

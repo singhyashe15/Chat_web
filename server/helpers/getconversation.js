@@ -17,8 +17,10 @@ const getConversation = async(currentUserId)=>{
 
                 if(msgByUserId === currentUserId){    
                     let seen = curr?.seen
-                    console.log("seen" + seen)
-                    return prev + (seen === 'true' ? 1 : 0)
+                    curr = 0
+                    if(seen === 'false') curr = 1;
+                    
+                    return prev + curr
                 }else{
                     return prev
                 }

@@ -101,7 +101,7 @@ const EditUserDetails = ({onClick,user}) => {
         localStorage.clear()
     }
   return (
-    <div  className='mb-10 ml-14 w-full bg-gray-700 flex rounded-lg'>
+    <div  className='fixed top-96 mb-10 ml-14 w-full bg-gray-700 flex rounded-lg'>
         <div className=' p-4 py-6 m-1 rounded w-full max-w-xs'>
             <div className='mb-5'>
                 <div className='my-1 w-24 flex items-center cursor-pointer ' onClick={handleOpenUploadPhoto} >

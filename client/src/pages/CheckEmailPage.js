@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
-import { IoClose } from "react-icons/io5";
 import { Link, useNavigate } from 'react-router-dom';
-import uploadFile from '../helpers/uploadFile';
 import toast from 'react-hot-toast';
 import { PiUserCircle } from "react-icons/pi";
 import { useDispatch } from 'react-redux';
-import { setToken, setUser } from '../redux/userSlice';
-import login from "../assets/login.jpg"
+import { setToken } from '../redux/userSlice';
+
 const CheckEmailPage = () => {
   const [data,setData] = useState({
     email : "",password:""
@@ -26,7 +24,7 @@ const CheckEmailPage = () => {
   const handleSubmit = async(e)=>{
     e.preventDefault()
     e.stopPropagation()
-
+    console.log(e)
     const URL = `${process.env.REACT_APP_BACKEND_URL}/api/email`
     
     try {
@@ -39,7 +37,7 @@ const CheckEmailPage = () => {
           credentials:'include'
         })
         const res = await response.json();
-       
+       console.log(res)
         toast.success(res.message)
         if(res.success){
           dispatch(setToken(res?.token))
