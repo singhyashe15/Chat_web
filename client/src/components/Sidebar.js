@@ -126,7 +126,7 @@ const Sidebar = () => {
                  
                 <div className='Custom h-[calc(100vh-65px)] overflow-y-auto overflow-hidden scrollbar'>
                     {  
-                        searchUser.length !== 0 && !loading  && (
+                        searchUser.length !== 0 && !loading  && allUser.length == 0 &&(
                             searchUser.map((user,index)=>{
                                 return(
                                     user._id !== User._id &&
@@ -136,7 +136,7 @@ const Sidebar = () => {
                         )
                     }
                     {
-                        allUser.length === 0 && (
+                        allUser.length === 0 && searchUser.length == 0 && (
                             <div className='mt-12'>
                                 <div className='flex justify-center items-center my-4 text-slate-500'>
                                     <FiArrowUpLeft

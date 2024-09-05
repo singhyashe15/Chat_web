@@ -5,7 +5,7 @@ const userDetails = require('../controllers/userdetails')
 // const logout = require('../controllers/logout')
 const updateUserDetails = require('../controllers/updatedetails')
 const searchUser = require('../controllers/search')
-
+const deleteMsg = require('../controllers/deletemsg')
 const router = express.Router()
 
 //create user api
@@ -20,6 +20,6 @@ router.post('/user',userDetails)
 router.post('/update-user',updateUserDetails)
 //search user
 router.post("/search-user",searchUser)
-
+router.post("/deletemsg",deleteMsg)
 
 module.exports = router

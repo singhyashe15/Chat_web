@@ -5,19 +5,20 @@ import Avatar from './Avatar'
 import { HiDotsVertical } from "react-icons/hi";
 import { FaPaperclip } from "react-icons/fa";
 import { FaImage,FaVideo,FaAngleLeft  } from "react-icons/fa6";
+import { FaTrash } from 'react-icons/fa';
 import uploadFile from '../helpers/uploadFile';
 import { IoClose} from "react-icons/io5";
 import { IoMdSend } from "react-icons/io";
 import moment from 'moment'
 import { useSocket } from '../socket/socket';
-
+import toast from 'react-hot-toast';
 
 const MessagePage = () => {
   const params = useParams()
   const { socket} = useSocket();
   const user = useSelector(state => state?.user)
-
-
+  const [del,setdelete] = useState(false)
+  const [currentmsg,setcurrentmsg] = useState("");
   const [dataUser,setDataUser] = useState({
     name : "",
     email : "",
@@ -127,7 +128,6 @@ const MessagePage = () => {
     
     if(message.text || message.imageUrl || message.videoUrl){
       if(socket){
-        console.log("Enter")
         socket.emit('new message',{
           sender : user?._id,
           receiver : params.userId,
@@ -144,7 +144,21 @@ const MessagePage = () => {
       }
     }
   }
-  
+  const deletemsg = async()=>{
+    const url = `${process.env.REACT_APP_BACKEND_URL}/api/deletemsg`
+    let res = await fetch(url,{
+      method:"POST",
+      body:JSON.stringify({texts:currentmsg}),
+      headers:{
+        'content-type':'application/json'
+      }
+    })
+    res = await res.json();
+    toast.success(res.message)
+    if(res.success){
+      setdelete(prev => !prev)
+    }
+  }
 
 //style={{ backgroundImage : `url(${wallpaper})`}}
   return (<>
@@ -188,9 +202,16 @@ const MessagePage = () => {
                     {
                       allMessage.map((msg,index)=>{
                         return(
-                          <div key={index} className={`m-2 p-2 py-1  rounded-tr-xl rounded-bl-xl w-fit max-w-[280px] md:max-w-sm lg:max-w-md ${user._id === msg?.msgUserId ? "ml-auto bg-teal-100" : "bg-white"}`}>
+                          <>
+                    <div key={index} className={`m-2  flex flex-row  ${user._id === msg?.msgUserId  && "ml-auto"}`}>
+                           <div className='flex justify-center items-center mr-3 text-slate-600'>
+                            <button onClick={()=>{setdelete(prev => !prev);setcurrentmsg(msg.text)}}>
+                              <FaTrash size={15}/>
+                            </button>
+                          </div>
+                          <div className={`p-2 py-1 rounded-tr-xl rounded-bl-xl w-fit max-w-[280px] md:max-w-sm lg:max-w-md  ${user._id === msg?.msgUserId ? "ml-auto bg-teal-100" : "bg-white"}`}>
                             {/* for image */}
-                              {
+                            {
                                 msg?.imageUrl && 
                                   <img 
                                     src={msg?.imageUrl}
@@ -209,9 +230,11 @@ const MessagePage = () => {
 
                             <p className='px-2'>{msg.text}</p>
                             <p className='text-xs ml-auto w-fit'>{moment(msg.createdAt).format('hh:mm')}</p>
-                            
-                            
-                          </div>
+                          </div> 
+                          </div>                  
+                          
+                          </>
+
                         )
                       })
                     }
@@ -222,15 +245,15 @@ const MessagePage = () => {
                   {
                     message.imageUrl && (
                       <div className='w-full h-full sticky bottom-0 bg-slate-700 bg-opacity-30 flex justify-center items-center rounded overflow-hidden'>
-                        <div className='bg-gray-500 p-3'>
+                        <div className='bg-gray-500 p-3 rounded-lg'>
                             <img
                               src={message.imageUrl}
                               alt='uploadImage'
                               className='aspect-square w-full h-full max-w-sm m-2 object-scale-down'
                             />
                             <div className='flex justify-evenly'>
-                              <button className='p-1 py-1 bg-green-400 text-blue-400 rounded-lg text-center hover:bg-red-600' onClick={handleClearUploadImage}>
-                                  <IoClose size={28}/>
+                              <button className='p-1 py-1 bg-green-400 text-blue-400 rounded-lg text-center hover:text-red-600' onClick={handleClearUploadImage}>
+                                  <FaTrash size={28}/>
                               </button>
                               <button className= 'p-2 bg-green-400 text-blue-400 rounded-lg text-center  hover:text-blue-600 '  onClick={handleSendMessage}>
                                   <IoMdSend size={28}/>
@@ -274,6 +297,32 @@ const MessagePage = () => {
                       </div>
                     )
                   } */}
+                  {
+                    del && <div className='w-full h-full sticky bottom-0  bg-slate-700 bg-opacity-30 flex  justify-center overflow-hidden  '>
+                    <div className='flex flex-col justify-center items-center bg-slate-600 my-60 px-4 rounded-xl'>
+                      <div>
+                        <p>Delete message?</p>
+                        </div>
+                        <div>
+                        <input
+                            type='checkbox' 
+                            style={{accentColor:'green'}}
+                        />
+                        <span>Also delete media received in this chat from the device gallery</span>
+                        </div>
+                        <div className='flex flex-row justify-evenly w-full'>
+                          <div>
+                            <button className='text-green-400 font-semibold'onClick={()=>{setdelete(prev => !prev)}} >Cancel</button>
+                          </div>
+                          <div>
+                            <button className='text-green-400 font-semibold' onClick={()=>{deletemsg()}}>
+                              Delete for everyone
+                            </button>
+                          </div>
+                        </div>
+                    </div>
+                    </div>
+                          }
           </section>
 
           {/**send message */}

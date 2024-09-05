@@ -130,7 +130,7 @@ io.on("connection",async(socket) => { //This event listener is triggered wheneve
               }
             )
             
-              const conversationSender = await getConversationMessage(user?._id.toString())
+              const conversationSender = await getConversationMessage(user?._id?.toString())
        
             const conversationReceiver = await getConversationMessage(id)
           

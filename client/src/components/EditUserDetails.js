@@ -48,7 +48,7 @@ const EditUserDetails = ({onClick,user}) => {
     }
     const handleUploadPhoto = async(e)=>{
         const file = e.target.files[0]
-        console.log(file)
+        
         const uploadPhoto = await uploadFile(file)
 
         setData((preve)=>{
@@ -60,8 +60,8 @@ const EditUserDetails = ({onClick,user}) => {
     }
 
     const handleSubmit = async(e)=>{
-        e.preventDefault()
-        e.stopPropagation()
+        // e.preventDefault()
+        // e.stopPropagation()
         try {
             const URL = `${process.env.REACT_APP_BACKEND_URL}/api/update-user`
 
@@ -101,7 +101,7 @@ const EditUserDetails = ({onClick,user}) => {
         localStorage.clear()
     }
   return (
-    <div  className='fixed top-96 mb-10 ml-14 w-full bg-gray-700 flex rounded-lg'>
+    <div  className='fixed top-96 mb-10 ml-14  bg-gray-700 flex rounded-lg'>
         <div className=' p-4 py-6 m-1 rounded w-full max-w-xs'>
             <div className='mb-5'>
                 <div className='my-1 w-24 flex items-center cursor-pointer ' onClick={handleOpenUploadPhoto} >

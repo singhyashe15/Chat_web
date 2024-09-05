@@ -3,7 +3,8 @@ const User = require("../models/user")
 
 const Updatedetail = async(req,res)=>{
   try{
-    const token = req.cookies || ""
+    const token = req.cookies.token || ""
+
     const user = await getDetailfromtoken(token);
 
     const {name,profile_pic} = req.body;
@@ -12,7 +13,7 @@ const Updatedetail = async(req,res)=>{
     const userInfo = await User.findById(user._id);
 
     return res.json({
-      message:"user updated successfully",
+      message:"Details updated successfully",
       data:userInfo,
       success:true
     })
