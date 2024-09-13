@@ -19,7 +19,6 @@ const MessagePage = () => {
   const user = useSelector(state => state?.user)
   const [del,setdelete] = useState(false)
   const [currentmsg,setcurrentmsg] = useState("");
-  const [index,setindex] = useState(0)
   const [dataUser,setDataUser] = useState({
     name : "",
     email : "",
