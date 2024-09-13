@@ -1,13 +1,13 @@
 const express = require("express");
 const {Server} = require("socket.io")
 const http = require("http");
-
 const {Messagemodel,ConversationModel} = require("../models/conversation")
 const UserModel = require("../models/user")
 const getUserDetailsFromToken =  require("../helpers/token")
 const getConversationMessage = require("../helpers/getconversation")
 const app = express();
 const server = http.createServer(app)
+
 const io = new Server(server,{
   cors:{
     options:"http://localhost:3000",
@@ -32,7 +32,6 @@ io.on("connection",async(socket) => { //This event listener is triggered wheneve
  
   // receiver-details
   socket.on('receiver-id',async (ID)=>{
-    console.log("idr" + ID)
       const User = await UserModel.findById(ID).select('-password')
       const payload = {
         id:User?._id,
@@ -106,13 +105,13 @@ io.on("connection",async(socket) => { //This event listener is triggered wheneve
        
         io.to(data?.sender).emit('conversation',conversationSender)
         io.to(data?.receiver).emit('conversation',conversationReceiver)
-
+      })
         socket.on('sidebar',async(id)=>{
             const conversation = await getConversationMessage(id)
             socket.emit('conversation',conversation)
         })
 
-        socket.on('seen',async(id)=>{
+      socket.on('seen',async(id)=>{
           console.log("ids" + id)
             const conversation = await ConversationModel.findOne({
               "$or":[
@@ -130,15 +129,15 @@ io.on("connection",async(socket) => { //This event listener is triggered wheneve
               }
             )
             
-              const conversationSender = await getConversationMessage(user?._id?.toString())
-       
+            const conversationSender = await getConversationMessage(user?._id?.toString())
+            
             const conversationReceiver = await getConversationMessage(id)
           
             io.to(user?._id).emit('conversation',conversationSender)
             io.to(id).emit('conversation',conversationReceiver)
             
         })
-    })
+
   socket.on('disconnect',()=>{
     console.log("Disconnected user" + socket.id)
     // delete onlineUser(user?._id?.toString())

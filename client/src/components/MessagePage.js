@@ -19,6 +19,7 @@ const MessagePage = () => {
   const user = useSelector(state => state?.user)
   const [del,setdelete] = useState(false)
   const [currentmsg,setcurrentmsg] = useState("");
+  const [index,setindex] = useState(0)
   const [dataUser,setDataUser] = useState({
     name : "",
     email : "",
@@ -35,6 +36,7 @@ const MessagePage = () => {
 
   const [allMessage,setAllMessage] = useState([])
   const currentMessage = useRef(null)
+  const divRefs = useRef([]);
   useEffect(()=>{
       if(currentMessage.current){
           currentMessage.current.scrollIntoView({behavior : 'smooth', block : 'end'})
@@ -114,7 +116,7 @@ const MessagePage = () => {
   },[socket,params.userId,user])
 
   const handleOnChange = (e)=>{
-    const {name,value}= e.target
+    const {value} = e.target
     setMessage(prev => {
       return{
         ...prev,
@@ -144,6 +146,7 @@ const MessagePage = () => {
       }
     }
   }
+
   const deletemsg = async()=>{
     const url = `${process.env.REACT_APP_BACKEND_URL}/api/deletemsg`
     let res = await fetch(url,{
@@ -158,6 +161,14 @@ const MessagePage = () => {
     if(res.success){
       setdelete(prev => !prev)
     }
+  }
+
+  const deleteme = ()=>{
+    if (divRefs.current[index]) {
+      divRefs.current[index].remove(); // Remove the specific div from the DOM
+    }
+    toast.success("Deleted for me successfully")
+    setdelete(prev => !prev)
   }
 
 //style={{ backgroundImage : `url(${wallpaper})`}}
@@ -202,11 +213,11 @@ const MessagePage = () => {
                     {
                       allMessage.map((msg,index)=>{
                         return(
-                          <>
-                    <div key={index} className={`m-2  flex flex-row  ${user._id === msg?.msgUserId  && "ml-auto"}`}>
-                           <div className='flex justify-center items-center mr-3 text-slate-600'>
-                            <button onClick={()=>{setdelete(prev => !prev);setcurrentmsg(msg.text)}}>
-                              <FaTrash size={15}/>
+                    <div key={index} ref={(el) => (divRefs.current[index] = el)}
+                     className={`m-2 flex flex-row ${user._id === msg?.msgUserId  && "ml-auto"}`}>
+                           <div className={`flex justify-center items-center mr-3 text-slate-600 ${user._id !== msg?.msgUserId  && "hidden"}`}>
+                            <button onClick={()=>{setdelete(prev => !prev);setcurrentmsg(msg.text);setindex(index)}}>
+                              <FaTrash size={15} className='hover:text-orange-400' />
                             </button>
                           </div>
                           <div className={`p-2 py-1 rounded-tr-xl rounded-bl-xl w-fit max-w-[280px] md:max-w-sm lg:max-w-md  ${user._id === msg?.msgUserId ? "ml-auto bg-teal-100" : "bg-white"}`}>
@@ -216,6 +227,7 @@ const MessagePage = () => {
                                   <img 
                                     src={msg?.imageUrl}
                                     className='w-full h-full object-scale-down'
+                                    alt='pic'
                                   />
                               }
                               {/* for video  */}
@@ -231,10 +243,12 @@ const MessagePage = () => {
                             <p className='px-2'>{msg.text}</p>
                             <p className='text-xs ml-auto w-fit'>{moment(msg.createdAt).format('hh:mm')}</p>
                           </div> 
+                          <div className={`flex justify-center items-center ml-3 text-slate-600 ${user._id === msg?.msgUserId  && "hidden"}`}>
+                            <button onClick={()=>{setdelete(prev => !prev);setcurrentmsg(msg.text);setindex(index)}}>
+                              <FaTrash size={15} className='hover:text-orange-400'/>
+                            </button>
+                          </div>
                           </div>                  
-                          
-                          </>
-
                         )
                       })
                     }
@@ -253,7 +267,7 @@ const MessagePage = () => {
                             />
                             <div className='flex justify-evenly'>
                               <button className='p-1 py-1 bg-green-400 text-blue-400 rounded-lg text-center hover:text-red-600' onClick={handleClearUploadImage}>
-                                  <FaTrash size={28}/>
+                                  <FaTrash size={18}/>
                               </button>
                               <button className= 'p-2 bg-green-400 text-blue-400 rounded-lg text-center  hover:text-blue-600 '  onClick={handleSendMessage}>
                                   <IoMdSend size={28}/>
@@ -303,19 +317,20 @@ const MessagePage = () => {
                       <div>
                         <p>Delete message?</p>
                         </div>
-                        <div>
-                        <input
+                        
+                        <div className='flex flex-row justify-evenly w-full m-4'>
+                          <div className='hover:bg-slate-400 rounded-xl '>
+                            <button className='text-green-400 font-semibold p-4 ' onClick={()=>{setdelete(prev => !prev)}} >Cancel</button>
+                          </div>
+                          <div className='hover:bg-slate-400 rounded-xl'>
+                        {/* <input
                             type='checkbox' 
                             style={{accentColor:'green'}}
-                        />
-                        <span>Also delete media received in this chat from the device gallery</span>
+                        /> */}
+                        <button className='text-green-400 font-semibold p-4' onClick={()=>{deleteme()}}>Delete for me Only</button>
                         </div>
-                        <div className='flex flex-row justify-evenly w-full'>
-                          <div>
-                            <button className='text-green-400 font-semibold'onClick={()=>{setdelete(prev => !prev)}} >Cancel</button>
-                          </div>
-                          <div>
-                            <button className='text-green-400 font-semibold' onClick={()=>{deletemsg()}}>
+                          <div className='hover:bg-slate-400 rounded-xl'>
+                            <button className='text-green-400 font-semibold p-4' onClick={()=>{deletemsg()}}>
                               Delete for everyone
                             </button>
                           </div>
