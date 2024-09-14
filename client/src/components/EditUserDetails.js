@@ -125,7 +125,7 @@ const EditUserDetails = ({onClick,user}) => {
                         type='text'
                         name='name'
                         id='name'
-                        value={data?.name}
+                        value={data?.name || ''}
                         onChange={handleOnChange}
                         className= 'py-1 px-2 focus:outline-primary border-0.5 bg-transparent text-white'
                         style={{width:'15rem'}}

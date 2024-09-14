@@ -48,7 +48,7 @@ const Home = () => {
         </section>
 
         {/**message component**/}
-        <section className={`${basePath && "hidden"} ` } >
+        <section className={`${basePath && "hidden"} `}>
             <Outlet/> 
         </section>
 

@@ -19,6 +19,7 @@ const MessagePage = () => {
   const user = useSelector(state => state?.user)
   const [del,setdelete] = useState(false)
   const [currentmsg,setcurrentmsg] = useState("");
+  const [index,setindex] = useState(0)
   const [dataUser,setDataUser] = useState({
     name : "",
     email : "",
@@ -84,6 +85,7 @@ const MessagePage = () => {
       }
     })
   }
+
   const handleClearUploadVideo = ()=>{
     setMessage(preve => {
       return{
@@ -107,6 +109,7 @@ const MessagePage = () => {
         socket.on('new-msg',(data)=>{
           setAllMessage(data)
         })
+
       }else{
         console.log(socket)
         console.log(params.userId)
@@ -156,6 +159,7 @@ const MessagePage = () => {
       }
     })
     res = await res.json();
+    socket.emit('receiver-id',params.userId)
     toast.success(res.message)
     if(res.success){
       setdelete(prev => !prev)
@@ -163,6 +167,7 @@ const MessagePage = () => {
   }
 
   const deleteme = ()=>{
+    console.log("INdex" + index)
     if (divRefs.current[index]) {
       divRefs.current[index].remove(); // Remove the specific div from the DOM
     }
@@ -212,8 +217,10 @@ const MessagePage = () => {
                     {
                       allMessage.map((msg,index)=>{
                         return(
-                    <div key={index} ref={(el) => (divRefs.current[index] = el)}
-                     className={`m-2 flex flex-row ${user._id === msg?.msgUserId  && "ml-auto"}`}>
+                    <div 
+                      key={index} 
+                      ref={(el) => (divRefs.current[index] = el)}
+                      className={`m-2 flex flex-row ${user._id === msg?.msgUserId  && "ml-auto"}`}>
                            <div className={`flex justify-center items-center mr-3 text-slate-600 ${user._id !== msg?.msgUserId  && "hidden"}`}>
                             <button onClick={()=>{setdelete(prev => !prev);setcurrentmsg(msg.text);setindex(index)}}>
                               <FaTrash size={15} className='hover:text-orange-400' />

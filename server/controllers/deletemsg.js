@@ -3,7 +3,6 @@ const {Messagemodel} = require("../models/conversation");
 const Deletemsg = async(req,res)=>{
  try {
    const {texts}  = req.body
-   console.log(req.body)
    await Messagemodel.deleteOne({text:texts})
    
    return res.status(201).json({

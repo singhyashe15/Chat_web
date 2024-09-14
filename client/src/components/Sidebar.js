@@ -29,7 +29,7 @@ const Sidebar = () => {
     useEffect(()=>{
         if(socket){
             socket.emit('sidebar',User?._id)
-            console.log(User._id)
+            
             socket.on('conversation',(data)=>{
                 console.log('conversation',data)
                 
@@ -45,7 +45,8 @@ const Sidebar = () => {
                             ...conversationUser,
                             userDetails : conversationUser.receiver
                         }
-                    }else{
+                    }
+                    else{
                         return{
                             ...conversationUser,
                             userDetails : conversationUser.sender
