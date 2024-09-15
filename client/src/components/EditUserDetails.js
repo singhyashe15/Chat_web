@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Avatar from './Avatar'
-import { FaPencilAlt ,FaUser} from 'react-icons/fa'
+import { FaPencilAlt} from 'react-icons/fa'
 import {BiLogOut} from "react-icons/bi";
 import uploadFile from '../helpers/uploadFile'
-import Divider from './Divider'
 import axios from 'axios'
 import taost from 'react-hot-toast'
 import { useDispatch } from 'react-redux'

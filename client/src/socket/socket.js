@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import {setOnlineUser } from '../redux/userSlice'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 const SocketContext = createContext();
 
 export const useSocket = () => {
@@ -10,9 +10,8 @@ export const useSocket = () => {
 
 export const SocketProvider = ({ children }) => {
     const [socket, setSocket] = useState(null);
-    // const user = JSON.parse(localStorage.getItem('user'))
     const dispatch = useDispatch()
-    // const [messages, setMessages] = useState([]);
+
     const Url = `${process.env.REACT_APP_BACKEND_URL}`
     useEffect(() => {
       
