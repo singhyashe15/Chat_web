@@ -104,15 +104,15 @@ io.on("connection",async(socket) => { //This event listener is triggered wheneve
         const conversationReceiver = await getConversationMessage(data?.receiver)
        
         io.to(data?.sender).emit('conversation',conversationSender)
-        io.to(data?.receiver).emit('conversation',conversationReceiver)
+       io.to(data?.receiver).emit('conversation',conversationReceiver)
       })
         socket.on('sidebar',async(id)=>{
             const conversation = await getConversationMessage(id)
             socket.emit('conversation',conversation)
         })
 
-      socket.on('seen',async(id)=>{
-          console.log("ids" + id)
+      socket.on('seen',async(id)=>{  
+       
             const conversation = await ConversationModel.findOne({
               "$or":[
                 {sender:user?._id,receiver:id},
@@ -121,25 +121,24 @@ io.on("connection",async(socket) => { //This event listener is triggered wheneve
             })
 
             const conv_id = conversation?.messages || []
-            console.log("i" + conv_id)
+            
             const update_msg = await Messagemodel.updateMany(
               {_id : {"$in" : conv_id} , msgUserId : id},
               {
                "$set" : {seen : true}
               }
             )
-            
-            const conversationSender = await getConversationMessage(user?._id?.toString())
+            // const conversationSender = await getConversationMessage(user?._id?.toString())
+            // // console.log("seen msg" + JSON.stringify(conversationSender))
             
             const conversationReceiver = await getConversationMessage(id)
           
-            io.to(user?._id).emit('conversation',conversationSender)
-            io.to(id).emit('conversation',conversationReceiver)
+            // io.to(id).emit('conversation',conversationSender)
+            io.to(user?._id.toString()).emit('conversation',conversationReceiver)
             
         })
 
   socket.on('disconnect',()=>{
-    console.log("Disconnected user" + socket.id)
     // delete onlineUser(user?._id?.toString())
     io.emit('onlineUser',Array.from(onlineUser));
   })
