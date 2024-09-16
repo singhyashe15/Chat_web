@@ -110,11 +110,7 @@ const MessagePage = () => {
           setAllMessage(data)
         })
 
-      }else{
-        console.log(socket)
-        console.log(params.userId)
       }
-      
   },[socket,params.userId,user])
 
   const handleOnChange = (e)=>{

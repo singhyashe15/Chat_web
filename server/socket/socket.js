@@ -108,6 +108,7 @@ io.on("connection",async(socket) => { //This event listener is triggered wheneve
       })
         socket.on('sidebar',async(id)=>{
             const conversation = await getConversationMessage(id)
+            
             socket.emit('conversation',conversation)
         })
 
@@ -125,16 +126,16 @@ io.on("connection",async(socket) => { //This event listener is triggered wheneve
             const update_msg = await Messagemodel.updateMany(
               {_id : {"$in" : conv_id} , msgUserId : id},
               {
-               "$set" : {seen : true}
+               "$set" : {seen : true} 
               }
             )
             // const conversationSender = await getConversationMessage(user?._id?.toString())
             // // console.log("seen msg" + JSON.stringify(conversationSender))
             
             const conversationReceiver = await getConversationMessage(id)
-          
+            
             // io.to(id).emit('conversation',conversationSender)
-            io.to(user?._id.toString()).emit('conversation',conversationReceiver)
+            io.to(user?._id?.toString()).emit('conversation',conversationReceiver)
             
         })
 

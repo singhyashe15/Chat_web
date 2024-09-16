@@ -30,8 +30,7 @@ const Sidebar = () => {
             socket.emit('sidebar',User?._id)
             
             socket.on('conversation',(data)=>{
-                console.log('conversation',data)
-                
+            
                 const conversationUserData = data.map((conversationUser,index)=>{
                     if(conversationUser?.sender?._id === conversationUser?.receiver?._id){
                         return{
@@ -65,7 +64,7 @@ const Sidebar = () => {
                 search : search
             })
             setLoading(false)
-
+            console.log(response.data.data)
             setSearchUser(response.data.data)
 
         } catch (error) {
@@ -125,8 +124,8 @@ const Sidebar = () => {
                 </div>
                  
                 <div className='Custom h-[calc(100vh-65px)] overflow-y-auto overflow-hidden scrollbar'>
-                    {  
-                        searchUser.length !== 0 && !loading  && allUser.length === 0 &&(
+                    { 
+                        searchUser.length !== 0 && !loading  &&(
                             searchUser.map((user,index)=>{
                                 return(
                                     user._id !== User._id &&

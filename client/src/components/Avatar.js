@@ -14,7 +14,6 @@ const Avatar = ({userId,name,imageUrl,width,height}) => {
       }else{
         avatarName = splitName[0][0]
       }
-      console.log(splitName)
     }
 
     const isOnline = onlineUser.includes(userId)
