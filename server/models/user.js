@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
   profile_pic:{
     type:String,
     default:""
+  },
+  quotes:{
+    type:String,
+    default:""
   }
 },{
   timestamps:true //to get createdAt and UpdatedAt time record

@@ -5,15 +5,17 @@ import Avatar from './Avatar'
 import { useSelector } from 'react-redux';
 import EditUserDetails from './EditUserDetails';
 import { FiArrowUpLeft } from "react-icons/fi";
+
 // import Loading from './Loading';
 import UserSearchCard from './UserSearchCard';
 import toast from 'react-hot-toast'
 import axios from 'axios';
 import { FaImage,FaVideo  } from "react-icons/fa6";
-import { FaBars } from 'react-icons/fa';
+import { FaBars,FaRegEdit } from 'react-icons/fa';
 import { IoClose } from "react-icons/io5";
 import { useSocket } from '../socket/socket';
 import Custom from "../css/custom.css"
+import moment from 'moment'
 const Sidebar = () => {
     const User = useSelector(state => state?.user)
     const [editUserOpen,setEditUserOpen] = useState(false)
@@ -28,9 +30,8 @@ const Sidebar = () => {
     useEffect(()=>{
         if(socket){
             socket.emit('sidebar',User?._id)
-            
             socket.on('conversation',(data)=>{
-            
+            console.log(moment(data[0]?.lastMsg?.createdAt).format('hh:mm'))
                 const conversationUserData = data.map((conversationUser,index)=>{
                     if(conversationUser?.sender?._id === conversationUser?.receiver?._id){
                         return{
@@ -56,6 +57,7 @@ const Sidebar = () => {
             })
         }
     },[socket,User])
+
     const handleSearchUser = async()=>{
         const URL = `${process.env.REACT_APP_BACKEND_URL}/api/search-user`
         try {
@@ -64,7 +66,7 @@ const Sidebar = () => {
                 search : search
             })
             setLoading(false)
-            console.log(response.data.data)
+            
             setSearchUser(response.data.data)
 
         } catch (error) {
@@ -73,12 +75,12 @@ const Sidebar = () => {
     }
 
     useEffect(()=>{
-        handleSearchUser()
+        handleSearchUser();
     },[search])
 
    
     const setclose = ()=>{
-        
+        setSearch("")
         setSearchUser([])
     }
   return (
@@ -106,10 +108,14 @@ const Sidebar = () => {
             </div> 
 
             <div className='lg:w-80 sm:w-96'>
-                <div className='h-16 flex items-center'>
-                    <h2 className='text-xl font-bold p-4 text-slate-800'>Chats</h2>
+                <div className='flex justify-between'>
+                    <div className='h-16 flex items-center'>
+                        <h2 className='text-xl font-bold p-4 text-slate-800'>Chats</h2>
+                    </div>
+                    <div className='h-10 w-10 mt-4 flex items-center justify-center rounded  hover:bg-white ' title='New chat' >
+                        <FaRegEdit size={20} className='text-white hover:text-black '/>
+                    </div>
                 </div>
-                <div className='bg-slate-200 p-[0.5px]'></div>
                 <div className='relative'>
                 <input
                     placeholder='Search' 
@@ -127,6 +133,7 @@ const Sidebar = () => {
                     { 
                         searchUser.length !== 0 && !loading  &&(
                             searchUser.map((user,index)=>{
+                                console.log(user)
                                 return(
                                     user._id !== User._id &&
                                     <UserSearchCard key={user._id} user={user}  />
@@ -148,7 +155,8 @@ const Sidebar = () => {
                     }
 
                     {
-                       allUser.map((conv,index)=>{
+                      searchUser.length === 0 && allUser.map((conv,index)=>{
+                       
                             return(
                                 <NavLink to={"/"+conv?.userDetails?._id} key={conv?._id} className='flex items-center gap-2 m-2 py-3 px-2 border border-transparent hover:border-primary rounded-full hover:bg-slate-500 cursor-pointer'>
                                     <div>
@@ -183,11 +191,18 @@ const Sidebar = () => {
                                             <p className='text-ellipsis line-clamp-1'>{conv?.lastMsg?.text}</p>
                                         </div>
                                     </div>
-                                    {
-                                        Boolean(conv?.unseenMsg) && (
-                                            <p className='text-xs w-6 h-6 flex justify-center items-center ml-auto p-1 bg-green-400 text-black font-semibold rounded-full'>{conv?.unseenMsg}</p>
-                                        )
-                                    }
+                                    <div className='ml-auto flex flex-col'>
+                                        <div className='font-semibold'>
+                                            {moment(conv?.lastMsg?.createdAt).format('hh:mm')}
+                                        </div>
+                                        <div className='flex justify-center items-center'>
+                                        {
+                                            Boolean(conv?.unseenMsg) && (
+                                                <p className='text-xs w-6 h-6 text-center  p-1 bg-green-400 text-black font-semibold rounded-full'>{conv?.unseenMsg}</p>
+                                            )
+                                        }
+                                        </div>
+                                    </div>
                                 </NavLink>
                             )
                         })

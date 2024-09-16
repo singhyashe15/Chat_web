@@ -325,10 +325,6 @@ const MessagePage = () => {
                             <button className='text-green-400 font-semibold p-4 ' onClick={()=>{setdelete(prev => !prev)}} >Cancel</button>
                           </div>
                           <div className='hover:bg-slate-400 rounded-xl'>
-                        {/* <input
-                            type='checkbox' 
-                            style={{accentColor:'green'}}
-                        /> */}
                         <button className='text-green-400 font-semibold p-4' onClick={()=>{deleteme()}}>Delete for me Only</button>
                         </div>
                           <div className='hover:bg-slate-400 rounded-xl'>
