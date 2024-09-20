@@ -1,43 +1,43 @@
-import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useEffect,useCallback } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { logout,setUser } from '../redux/userSlice'
 import Sidebar from '../components/Sidebar'
-import logo from '../assets/chatwave.jpg'
+import logo from '../assets/chatlogo.png'
 const Home = () => {
- 
+  const user = useSelector(state => state?.user)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const location = useLocation()
 
-  const fetchUserDetails = async()=>{
+  const fetchUserDetails = useCallback(async () => {
     const URL = `${process.env.REACT_APP_BACKEND_URL}/api/user`
     try {
-        const res = await fetch(URL,{
-          method:"POST",
-          credentials:"include",
-          headers:{
-            "content-type":"application/json"
-          }
-        })
-        let response = await res.json()
-        dispatch(setUser(response?.data))
+        const res = await fetch(URL, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "content-type": "application/json"
+            }
+        });
+        let response = await res.json();
+        dispatch(setUser(response?.data));
 
-        const data = JSON.stringify(response?.data)
-        localStorage.setItem('user',data)
-      
-        if(response.data?.logout){
-            dispatch(logout())
-            navigate("/login")
+        const data = JSON.stringify(response?.data);
+        localStorage.setItem('user', data);
+
+        if (response.data?.logout) {
+            dispatch(logout());
+            navigate("/login");
         }
     } catch (error) {
-        console.log("error",error)
+        console.log("error", error);
     }
-  }
+}, [dispatch, navigate]);
 
-  useEffect(()=>{
-    fetchUserDetails()
-  },[])
+useEffect(() => {
+    fetchUserDetails();
+}, [fetchUserDetails]);
 
 
   const basePath = location.pathname === '/'
@@ -60,7 +60,7 @@ const Home = () => {
                 alt='logo'
               />
             </div>
-            <p className='text-lg mt-2 text-slate-500'>Select user to send messages</p>
+            <p className='text-xl italic font-semibold mt-2 text-slate-500'>Hello {user?.name} 😎 start the conversations</p>
         </div>
     </div>
     

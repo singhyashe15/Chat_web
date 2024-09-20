@@ -67,13 +67,12 @@ const CheckEmailPage = () => {
           <h3 className='font-semibold'>Welcome to Chat app!</h3>
           <form className='grid gap-4 mt-3 ' onSubmit={handleSubmit}>
               <div className='flex flex-col gap-1'>
-                <label htmlFor='email' className='font-semibold'>Email :</label>
                 <input
                   type='email'
                   id='email'
                   name='email'
-                  placeholder='enter your email' 
-                  className='bg-slate-100 px-2 py-1 border-2 focus:outline-primary bg-transparent'
+                  placeholder='Email' 
+                  className='bg-slate-100 px-2 py-1 border-2  bg-transparent'
                   value={data.email}
                   onChange={handleOnChange}
                   required
@@ -81,13 +80,12 @@ const CheckEmailPage = () => {
                 />
               </div>
               <div className='flex flex-col gap-1'>
-                <label htmlFor='password' className='font-semibold'>Password :</label>
                 <input
                   type='password'
                   id='password'
                   name='password'
-                  placeholder='enter your password' 
-                  className='bg-slate-100 px-2 py-1 border-2 focus:outline-primary bg-transparent'
+                  placeholder='Password' 
+                  className='bg-slate-100 px-2 py-1 border-2  bg-transparent'
                   value={data.password}
                   onChange={handleOnChange}
                   required
@@ -95,13 +93,13 @@ const CheckEmailPage = () => {
                 />
               </div>
               <button
-               className='bg-blue-500 text-lg  px-4 py-1 hover:bg-blue-300 rounded-full mt-2 font-bold text-black leading-relaxed tracking-wide'>
+               className='bg-blue-500 text-lg  px-4 py-1 hover:bg-blue-300 hover:text-green-700 rounded-full mt-2 font-bold text-black leading-relaxed tracking-wide'>
                 Let's Start
               </button>
           </form>
-          <div className='flex justify-evenly'>
-          <div className=''><Link to={"/forgot-password"} className='hover:text-primary font-semibold'>Forgot password</Link></div>
-          <div className=' text-center'>New User ?<Link to={"/register"} className='hover:text-primary font-semibold'>Register</Link></div>
+          <div className='flex justify-evenly mt-10'>
+          <div className=''><Link to={"/forgot-password"} className='hover:text-red-500 font-semibold'>Forgot password</Link></div>
+          <div className=' text-center'>New User ?<Link to={"/register"} className='hover:text-green-500 font-semibold'>Register</Link></div>
           </div>
         </div>
     </div>

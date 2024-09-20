@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from '../assets/chatwave.jpg'
+import logo from '../assets/chatlogo.png'
 
 const AuthLayouts = ({children}) => {
   return (
@@ -10,7 +10,7 @@ const AuthLayouts = ({children}) => {
               alt='logo'
               width={50}
               height={20}
-              className='grayscale'
+              className=''
             />
         </header>
 

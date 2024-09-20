@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState,useCallback } from 'react'
 import { IoChatbubbleEllipses } from "react-icons/io5";
 import { NavLink} from 'react-router-dom';
 import Avatar from './Avatar'
@@ -14,7 +14,7 @@ import { FaImage,FaVideo  } from "react-icons/fa6";
 import { FaBars,FaRegEdit } from 'react-icons/fa';
 import { IoClose } from "react-icons/io5";
 import { useSocket } from '../socket/socket';
-import Custom from "../css/custom.css"
+// import Custom from "../css/custom.css"
 import moment from 'moment'
 const Sidebar = () => {
     const User = useSelector(state => state?.user)
@@ -58,25 +58,21 @@ const Sidebar = () => {
         }
     },[socket,User])
 
-    const handleSearchUser = async()=>{
+    const handleSearchUser = useCallback(async () => {
         const URL = `${process.env.REACT_APP_BACKEND_URL}/api/search-user`
         try {
             setLoading(true)
-            const response = await axios.post(URL,{
-                search : search
-            })
-            setLoading(false)
-            
-            setSearchUser(response.data.data)
-
+            const response = await axios.post(URL, { search });
+            setLoading(false);
+            setSearchUser(response.data.data);
         } catch (error) {
-            toast.error(error?.response?.data?.message)
+            toast.error(error?.response?.data?.message);
         }
-    }
-
-    useEffect(()=>{
+    }, [search]);
+    
+    useEffect(() => {
         handleSearchUser();
-    },[search])
+    }, [search, handleSearchUser]);
 
    
     const setclose = ()=>{
@@ -133,7 +129,7 @@ const Sidebar = () => {
                     { 
                         searchUser.length !== 0 && !loading  &&(
                             searchUser.map((user,index)=>{
-                                console.log(user)
+                                
                                 return(
                                     user._id !== User._id &&
                                     <UserSearchCard key={user._id} user={user}  />

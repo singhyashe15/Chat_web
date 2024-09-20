@@ -8,7 +8,7 @@ async function checkPassword(request,response){
         const user = await UserModel.findOne({email:email})
         
         const verifyPassword = await bcryptjs.compare(password,user.password)
-        console.log(verifyPassword)
+
         const jwtsecret = process.env.JWT_SECRET_KEY
         
         if(!verifyPassword){
@@ -24,13 +24,13 @@ async function checkPassword(request,response){
         
         // const jwtsecret = process.env.JWT_SECRET_KEY
     
-        const token =  jwt.sign(tokenData,jwtsecret,{ expiresIn : '2d'})
+        const token =  jwt.sign(tokenData,jwtsecret,{ expiresIn : '5d'})
         const cookieOptions = {
             http : true,
             secure : true,
             sameSite : 'None'
         }
-       console.log('token' + token)
+
         return response.cookie('token',token,cookieOptions).status(200).json({
             message : "Login successfully",
             token : token,
