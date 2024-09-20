@@ -12,7 +12,10 @@ const {app,server} = require('./socket/socket')
 // connect fronted 
 app.use(cors({
   origin: 'https://chat-web-rho-nine.vercel.app/',
-  credentials:true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allow necessary methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
+  optionsSuccessStatus: 200
 }));
 
 app.use(express.json());
