@@ -87,17 +87,17 @@ const RegisterPage = () => {
 
   return (
     <div className='mt-20  h-auto flex flex-col lg:flex-row justify-evenly items-center ' >
-      <div>
-          <img
-            src={chatLogo} //logo
-            width={100}
-            alt='logo'
-            className='w-40 sm:w-48 md:w-64 lg:w-80 '
-            />
-      </div>
         <div className='bg-white w-full max-w-md  rounded-[4.25rem] overflow-hidden p-4 m-8 border-2 border-blue-900'>
           <h3 className='text-center font-bold italic text-lg'>Welcome to Chat Wave</h3>
-
+          <div className='h-4 -mt-4' >
+            <img
+              src={chatLogo} //logo
+              width={20}
+              height={20}
+              alt='logo'
+              className='w-80'
+              />
+          </div>
           <form className='grid gap-4 mt-5' onSubmit={handleSubmit}>
               <div className='flex flex-col gap-1'>
                 <input
@@ -105,7 +105,7 @@ const RegisterPage = () => {
                   id='name'
                   name='name'
                   placeholder='Full Name' 
-                  className='bg-slate-100 px-2 py-1 border-2 rounded-full'
+                  className='bg-slate-100 px-2 py-1 border-2 rounded-full bg-transparent'
                   value={data.name}
                   onChange={handleOnChange}
                   required
@@ -119,7 +119,7 @@ const RegisterPage = () => {
                   id='email'
                   name='email'
                   placeholder='Email Address' 
-                  className='bg-slate-100 px-2 py-1 border-2 rounded-full'
+                  className='bg-slate-100 px-2 py-1 border-2 rounded-full bg-transparent'
                   value={data.email}
                   onChange={handleOnChange}
                   autoComplete='off'
@@ -133,7 +133,7 @@ const RegisterPage = () => {
                   id='password'
                   name='password'
                   placeholder='Password' 
-                  className='bg-slate-100 px-2 py-1 border-2 rounded-full '
+                  className='bg-slate-100 px-2 py-1 border-2 rounded-full bg-transparent'
                   value={data.password}
                   onChange={handleOnChange}
                   autoComplete='off'
@@ -142,10 +142,8 @@ const RegisterPage = () => {
               </div>
 
               <div className='flex flex-col gap-1'>
-                <label htmlFor='profile_pic'>Photo :
-
-                  <div className='h-14 bg-slate-200 flex justify-center items-center border rounded hover:border-primary cursor-pointer'>
-                      <p className='text-sm max-w-[300px] text-ellipsis line-clamp-1'>
+                  <div className='h-14 bg-transparent flex justify-center items-center border rounded hover:border-blue-700 cursor-pointer'>
+                      <p className='text-lg italic font-bold max-w-[300px] text-ellipsis line-clamp-1'>
                         {
                           uploadPhoto?.name ? uploadPhoto?.name : "Upload profile photo"
                         }
@@ -159,14 +157,11 @@ const RegisterPage = () => {
                       }
                       
                   </div>
-                
-                </label>
-                
                 <input
                   type='file'
                   id='profile_pic'
                   name='profile_pic'
-                  className='bg-slate-100 px-2 py-1 focus:outline-primary hidden'
+                  className=' px-2 py-1 hidden '
                   onChange={handleUploadPhoto}
                 />
               </div>

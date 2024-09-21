@@ -18,8 +18,8 @@ export const SocketProvider = ({ children }) => {
         const socket = io(Url,{
           reconnection:true,
           reconnectionAttempts:Infinity,
-          reconnectionDelay:1000,
-          reconnectionDelayMax:2000,
+          // reconnectionDelay:1000,
+          // reconnectionDelayMax:2000,
           timeout:20000,
           auth : {
             token: localStorage.getItem('token')
@@ -31,7 +31,8 @@ export const SocketProvider = ({ children }) => {
           dispatch(setOnlineUser(data))
         })
         return () => {
-          socket.disconnect(); // Cleanup on unmount
+          if(socket)
+            socket.disconnect(); // Cleanup on unmount
         };
     }, []);
 

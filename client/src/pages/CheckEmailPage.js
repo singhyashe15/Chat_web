@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import { PiUserCircle } from "react-icons/pi";
 import { useDispatch } from 'react-redux';
 import { setToken } from '../redux/userSlice';
-
+import chatLogo from '../assets/chatlogo.png'
 const CheckEmailPage = () => {
   const [data,setData] = useState({
     email : "",password:""
@@ -54,17 +54,25 @@ const CheckEmailPage = () => {
     }
   }
 
-
+// sm:w-48 md:w-64 lg
   return (
-    <div className='mt-5 mx-1' >
-        <div className='h-96 w-full max-w-md border-2 border-blue-900 rounded-[3.25rem] overflow-hidden p-4 mx-auto'>
-
-            <div className='w-fit mx-auto mb-2'>
+    <div className='w-full h-full flex items-center justify-center' >
+        <div className='h-96 w-full max-w-md border-2 border-blue-900 rounded-[3.25rem] overflow-hidden p-4 mt-24 '>
+        <div className='h-1' >
+            <img
+              src={chatLogo} //logo
+              width={20}
+              height={20}
+              alt='logo'
+              className='w-80  mt-4 '
+              />
+          </div>
+            <div className='w-fit mx-auto mb-2  -mt-4'>
                 <PiUserCircle
                   size={80}
                 />
             </div>
-          <h3 className='font-semibold'>Welcome to Chat app!</h3>
+          <h3 className='font-bold italic text-lg text-center -mt-4'>Welcome to Chat app!</h3>
           <form className='grid gap-4 mt-3 ' onSubmit={handleSubmit}>
               <div className='flex flex-col gap-1'>
                 <input
@@ -93,11 +101,11 @@ const CheckEmailPage = () => {
                 />
               </div>
               <button
-               className='bg-blue-500 text-lg  px-4 py-1 hover:bg-blue-300 hover:text-green-700 rounded-full mt-2 font-bold text-black leading-relaxed tracking-wide'>
+               className='bg-blue-500 text-lg  px-4 py-1 hover:bg-blue-300 hover:text-green-700 rounded-full mt-8 font-bold text-black leading-relaxed tracking-wide'>
                 Let's Start
               </button>
           </form>
-          <div className='flex justify-evenly mt-10'>
+          <div className='flex justify-evenly mt-8'>
           <div className=''><Link to={"/forgot-password"} className='hover:text-red-500 font-semibold'>Forgot password</Link></div>
           <div className=' text-center'>New User ?<Link to={"/register"} className='hover:text-green-500 font-semibold'>Register</Link></div>
           </div>

@@ -79,12 +79,17 @@ const Sidebar = () => {
         setSearch("")
         setSearchUser([])
     }
+    let value = 0
+    const clickedit = ()=>{
+        console.log("King")
+        value = 96
+    }
   return (
-    <div  className='w-full lg:w-96 lg:h-full grid grid-cols-[50px,1fr] bg-slate-600 fixed'>
-            <div className='bg-slate-400 w-15  rounded-tr-lg rounded-br-lg py-5 text-slate-600 flex flex-col justify-between'>
+    <div  className='w-full lg:w-96  grid grid-cols-[50px,1fr] bg-slate-600 fixed'>
+            <div className= "bg-slate-400   rounded-tr-lg rounded-br-lg py-5 text-slate-600 flex flex-col justify-between ">
                 <div className='grid gap-8'>
                     <button className='mx-auto p-2 text-black rounded-lg  hover:bg-slate-200'>
-                        <FaBars/>
+                        <FaBars onClick={()=>clickedit()} />
                     </button>
                     <NavLink className={({isActive})=>`w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-slate-200 rounded-full ${isActive && "bg-slate-200"}`} title='chat'>
                         <IoChatbubbleEllipses size={20} />
