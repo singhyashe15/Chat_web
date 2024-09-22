@@ -106,6 +106,11 @@ io.on("connection",async(socket) => { //This event listener is triggered wheneve
         io.to(data?.sender).emit('conversation',conversationSender)
        io.to(data?.receiver).emit('conversation',conversationReceiver)
       })
+
+      socket.on('online',(id)=>{
+        onlineUser.delete(id)
+        console.log(Array.from(onlineUser))
+      })
         socket.on('sidebar',async(id)=>{
             const conversation = await getConversationMessage(id)
             
@@ -140,13 +145,11 @@ io.on("connection",async(socket) => { //This event listener is triggered wheneve
         })
 
   socket.on('disconnect',()=>{
-    // delete onlineUser(user?._id?.toString())
+    onlineUser.delete(user?._id?.toString())
     io.emit('onlineUser',Array.from(onlineUser));
   })
   
 })
-
-
 
 module.exports ={
   app,server

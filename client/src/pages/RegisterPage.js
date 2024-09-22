@@ -95,11 +95,11 @@ const RegisterPage = () => {
               width={20}
               height={20}
               alt='logo'
-              className='w-80'
+              className='w-80 mx-auto'
               />
           </div>
           <form className='grid gap-4 mt-5' onSubmit={handleSubmit}>
-              <div className='flex flex-col gap-1'>
+              <div className='flex flex-col gap-1 mt-5'>
                 <input
                   type='text'
                   id='name'
@@ -142,7 +142,7 @@ const RegisterPage = () => {
               </div>
 
               <div className='flex flex-col gap-1'>
-                  <div className='h-14 bg-transparent flex justify-center items-center border rounded hover:border-blue-700 cursor-pointer'>
+                  <div className='h-14 bg-transparent flex justify-center items-center border rounded-full hover:border-blue-700 cursor-pointer'>
                       <p className='text-lg italic font-bold max-w-[300px] text-ellipsis line-clamp-1'>
                         {
                           uploadPhoto?.name ? uploadPhoto?.name : "Upload profile photo"
@@ -150,7 +150,7 @@ const RegisterPage = () => {
                       </p>
                       {
                         uploadPhoto?.name && (
-                          <button className='text-lg ml-2 hover:text-red-600' onClick={handleClearUploadPhoto}>
+                          <button className='text-lg ml-2 hover:text-red-600 ' onClick={handleClearUploadPhoto}>
                             <IoClose/>
                           </button>
                         )
@@ -168,7 +168,7 @@ const RegisterPage = () => {
 
 
               <button
-               className='bg-slate-500 text-lg  px-4 py-1  rounded mt-2 font-bold text-black leading-relaxed tracking-wide hover:bg-violet-500'
+               className='bg-slate-500 text-lg  px-4 py-1  rounded-full mt-2 font-bold text-black leading-relaxed tracking-wide hover:bg-violet-500'
               >
                 Register
               </button>

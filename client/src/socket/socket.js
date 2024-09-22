@@ -29,6 +29,7 @@ export const SocketProvider = ({ children }) => {
         console.log(socket)
         socket?.on('onlineUser',(data)=>{
           dispatch(setOnlineUser(data))
+
         })
         return () => {
           if(socket)

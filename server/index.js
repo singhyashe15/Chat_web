@@ -9,7 +9,7 @@ const connectDB = require('./config/database')
 const {app,server} = require('./socket/socket')
 
 
-// connect fronted 
+// connect fronted https://chat-web-rho-nine.vercel.app
 app.use(cors({
   origin: 'https://chat-web-rho-nine.vercel.app',
   credentials: true,

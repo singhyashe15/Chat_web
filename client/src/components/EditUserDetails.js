@@ -5,11 +5,13 @@ import {BiLogOut} from "react-icons/bi";
 import uploadFile from '../helpers/uploadFile'
 import axios from 'axios'
 import taost from 'react-hot-toast'
-import { useDispatch } from 'react-redux'
-import { setUser,logout } from '../redux/userSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { setUser,logout,setOnlineUser } from '../redux/userSlice'
 import { useNavigate } from 'react-router-dom';
+import { useSocket } from '../socket/socket';
 
 const EditUserDetails = ({onClick,user}) => {
+    const User = useSelector(state => state.user)
     const [data,setData] = useState({
         name : user?.user,
         profile_pic : user?.profile_pic
@@ -18,6 +20,7 @@ const EditUserDetails = ({onClick,user}) => {
     const uploadPhotoRef = useRef()
     const inputref = useRef(null)
     const dispatch = useDispatch()
+    const {socket} = useSocket()
     const navigate = useNavigate()
     useEffect(()=>{
         setData((preve)=>{
@@ -88,13 +91,19 @@ const EditUserDetails = ({onClick,user}) => {
 
     const handle = ()=>{
         setEditable(!isEditable)
-       
         if(inputref.current && isEditable){
             inputref.current.focus()
         }
     }
 
     const handlelogout = ()=>{
+        const data = User.onlineUser.filter((item) => 
+            item !== User._id
+        )
+        if(socket){
+            socket.emit('online',User._id)
+        }
+        dispatch(setOnlineUser(data))
         dispatch(logout())
         navigate("/login")
         localStorage.clear()
