@@ -109,7 +109,7 @@ const EditUserDetails = ({onClick,user}) => {
         localStorage.clear()
     }
   return (
-    <div  className='fixed top-96 mb-10 ml-14  bg-gray-700 flex rounded-lg'>
+    <div  className='fixed top-96  ml-2  bg-gray-700 flex rounded-lg'>
         <div className=' p-4 py-6 m-1 rounded w-full max-w-xs'>
             <div className='mb-5'>
                 <div className='my-1 w-24 flex items-center cursor-pointer ' onClick={handleOpenUploadPhoto} >
@@ -127,7 +127,6 @@ const EditUserDetails = ({onClick,user}) => {
                     ref={uploadPhotoRef}
                 />
             </div>
-            {/* <form className='grid gap-3 mt-3' onSubmit={handleSubmit}> */}
                 <div className='flex'>
                     <input
                         type='text'
@@ -146,7 +145,6 @@ const EditUserDetails = ({onClick,user}) => {
                 </div>
 
                     <div className='my-1 flex items-center gap-4'>
-                    <p className='text-lg  text-white'>Email Id</p>
                        <span className='text-white text-lg' > {data?.email} </span>
                     </div>
 
@@ -159,7 +157,6 @@ const EditUserDetails = ({onClick,user}) => {
                             <BiLogOut size={20}/>
                         </span>
                     </button>
-            {/* </form> */}
         </div>
     </div>
   )

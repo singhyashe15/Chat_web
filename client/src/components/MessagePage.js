@@ -12,6 +12,7 @@ import { IoMdSend } from "react-icons/io";
 import moment from 'moment'
 import { useSocket } from '../socket/socket';
 import toast from 'react-hot-toast';
+import Loading from './Loading'
 
 const MessagePage = () => {
   const params = useParams()
@@ -20,6 +21,7 @@ const MessagePage = () => {
   const [del,setdelete] = useState(false)
   const [currentmsg,setcurrentmsg] = useState("");
   const [index,setindex] = useState(0)
+  const [loading,setLoading] = useState(false)
   const [dataUser,setDataUser] = useState({
     name : "",
     email : "",
@@ -49,9 +51,9 @@ const MessagePage = () => {
 
   const handleUploadImage = async(e)=>{
     const file = e.target.files[0]
-    // setLoading(true)
+    setLoading(true)
     const uploadPhoto = await uploadFile(file)
-    // setLoading(false)
+    setLoading(false)
     setUpload(false)
 
     setMessage(preve => {
@@ -73,9 +75,9 @@ const MessagePage = () => {
   const handleUploadVideo = async(e)=>{
     const file = e.target.files[0]
 
-    // setLoading(true)
+    setLoading(true)
     const uploadPhoto = await uploadFile(file)
-    // setLoading(false)
+    setLoading(false)
     setUpload(false)
 
     setMessage(preve => {
@@ -306,18 +308,18 @@ const MessagePage = () => {
                     )
                   }
 
-                  {/* {
+                  {
                     loading && (
                       <div className='w-full h-full flex sticky bottom-0 justify-center items-center'>
                         <Loading/>
                       </div>
                     )
-                  } */}
+                  }
                   {
                     del && <div className='w-full h-full sticky bottom-0  bg-slate-700 bg-opacity-30 flex  justify-center overflow-hidden  '>
                     <div className='flex flex-col justify-center items-center bg-slate-600 my-60 px-4 rounded-xl'>
-                      <div>
-                        <p>Delete message?</p>
+                      <div className='mt-4'>
+                        <p className='italic font-bold text-lime-300 text-xl'>Delete message?</p>
                         </div>
                         
                         <div className='flex flex-row justify-evenly w-full m-4'>

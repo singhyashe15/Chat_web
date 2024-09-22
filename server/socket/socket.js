@@ -28,6 +28,7 @@ io.on("connection",async(socket) => { //This event listener is triggered wheneve
   //creating  a room
   socket.join(user?._id?.toString())
   onlineUser.add(user?._id?.toString())
+  console.log(user?._id)
   io.emit('onlineUser',Array.from(onlineUser))
  
   // receiver-details

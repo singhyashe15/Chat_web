@@ -24,7 +24,6 @@ const CheckEmailPage = () => {
   const handleSubmit = async(e)=>{
     e.preventDefault()
     e.stopPropagation()
-    console.log(e)
     const URL = `${process.env.REACT_APP_BACKEND_URL}/api/email`
     
     try {
@@ -37,7 +36,6 @@ const CheckEmailPage = () => {
           credentials:'include'
         })
         const res = await response.json();
-       console.log(res)
         toast.success(res.message)
         if(res.success){
           dispatch(setToken(res?.token))
@@ -49,7 +47,6 @@ const CheckEmailPage = () => {
           navigate('/')
         }
     } catch (error) {
-        console.log(error)
         toast.error(error?.res?.message)
     }
   }

@@ -3,8 +3,13 @@ const {Messagemodel} = require("../models/conversation");
 const Deletemsg = async(req,res)=>{
  try {
    const {texts}  = req.body
-   await Messagemodel.deleteOne({text:texts})
+   const message = await Messagemodel.findOne({text:texts})
    
+   await Messagemodel.updateOne({_id:message._id},
+    {
+      "$set": {text : 'This Message was deleted'}
+    }
+   )
    return res.status(201).json({
      message:"Deleted successfully",
      success: true

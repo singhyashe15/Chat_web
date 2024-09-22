@@ -13,6 +13,7 @@ export const SocketProvider = ({ children }) => {
     const dispatch = useDispatch()
 
     const Url = `${process.env.REACT_APP_BACKEND_URL}`
+   
     useEffect(() => {
       
         const socket = io(Url,{
@@ -28,6 +29,7 @@ export const SocketProvider = ({ children }) => {
         setSocket(socket);
         console.log(socket)
         socket?.on('onlineUser',(data)=>{
+          console.log(data)
           dispatch(setOnlineUser(data))
 
         })
