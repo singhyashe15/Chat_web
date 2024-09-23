@@ -11,6 +11,10 @@ module.exports = {
         lightGray: '#E0E0E0',
         fgreen:'#111111'
       },
+      width:{
+        '30rem' : '30rem',
+        '10.75rem' : '10.75rem'
+      }
     },
   },
   plugins: [],

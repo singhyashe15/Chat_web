@@ -15,7 +15,6 @@ export const SocketProvider = ({ children }) => {
     const Url = `${process.env.REACT_APP_BACKEND_URL}`
    
     useEffect(() => {
-      
         const socket = io(Url,{
           reconnection:true,
           reconnectionAttempts:Infinity,
@@ -31,7 +30,6 @@ export const SocketProvider = ({ children }) => {
         socket?.on('onlineUser',(data)=>{
           console.log(data)
           dispatch(setOnlineUser(data))
-
         })
         return () => {
           if(socket)

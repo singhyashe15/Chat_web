@@ -5,16 +5,15 @@ import Avatar from './Avatar'
 import { useSelector } from 'react-redux';
 import EditUserDetails from './EditUserDetails';
 import { FiArrowUpLeft } from "react-icons/fi";
-
 // import Loading from './Loading';
 import UserSearchCard from './UserSearchCard';
 import toast from 'react-hot-toast'
 import axios from 'axios';
 import { FaImage,FaVideo  } from "react-icons/fa6";
-import { FaBars,FaRegEdit } from 'react-icons/fa';
+import { FaRegEdit } from 'react-icons/fa';
 import { IoClose } from "react-icons/io5";
 import { useSocket } from '../socket/socket';
-// import Custom from "../css/custom.css"
+import ChatLogo from '../assets/chatlogo.png'
 import moment from 'moment'
 const Sidebar = () => {
     const User = useSelector(state => state?.user)
@@ -31,7 +30,6 @@ const Sidebar = () => {
         if(socket){
             socket.emit('sidebar',User?._id)
             socket.on('conversation',(data)=>{
-            console.log(moment(data[0]?.lastMsg?.createdAt).format('hh:mm'))
                 const conversationUserData = data.map((conversationUser,index)=>{
                     if(conversationUser?.sender?._id === conversationUser?.receiver?._id){
                         return{
@@ -79,14 +77,14 @@ const Sidebar = () => {
         setSearch("")
         setSearchUser([])
     }
-    let value = 0
-    const clickedit = ()=>{
-        console.log("King")
-        value = 96
-    }
+    // let value = 0
+    // const clickedit = ()=>{
+    //     console.log("King")
+    //     value = 96
+    // }grid grid-cols-[50px,1fr]
   return (
-    <div  className='w-full lg:w-96  grid grid-cols-[50px,1fr] bg-slate-600 fixed'>
-            <div className= "bg-slate-400   rounded-tr-lg rounded-br-lg py-5 text-slate-600 flex flex-col justify-between ">
+    <div  className='w-full lg:w-96 px-4  bg-slate-600 fixed'>
+            {/* <div className= "bg-slate-400   rounded-tr-lg rounded-br-lg py-5 text-slate-600 flex flex-col justify-between ">
                 <div className='grid gap-8'>
                     <button className='mx-auto p-2 text-black rounded-lg  hover:bg-slate-200'>
                         <FaBars onClick={()=>clickedit()} />
@@ -106,10 +104,18 @@ const Sidebar = () => {
                             userId={User?._id}
                         />
                     </button>  
-            </div> 
+            </div>  */}
 
             <div className='lg:w-80 sm:w-96'>
                 <div className='flex justify-between'>
+                    <div className='h-16 w-16 flex items-center'>
+                        <img 
+                            src={ChatLogo}
+                            width={50}
+                            height={50}
+                            alt='logo'
+                        />
+                    </div>
                     <div className='h-16 flex items-center'>
                         <h2 className='text-xl font-bold p-4 text-slate-800'>Chats</h2>
                     </div>
@@ -120,17 +126,17 @@ const Sidebar = () => {
                 <div className='relative'>
                 <input
                     placeholder='Search' 
-                    className='w-full h-10 ml-1 my-2 p-5 rounded outline-none font-semibold relative' 
+                    className='w-full h-10 ml-1 my-2 p-5 rounded-full outline-none font-semibold relative' 
                     onChange={(e)=>setSearch(e.target.value)}
                     value={search}
                     ref={inputref}   
                />
                <button onClick={()=>setclose()} className='absolute top-5 right-2'>
-                <IoClose/>
+                <IoClose className='hover:text-violet-700' />
             </button>
                 </div>
                  
-                <div className='Custom h-[calc(100vh-65px)] overflow-y-auto overflow-hidden scrollbar'>
+                <div className='chat-box h-[calc(100vh-65px)] overflow-y-auto overflow-hidden scrollbar'>
                     { 
                         searchUser.length !== 0 && !loading  &&(
                             searchUser.map((user,index)=>{
@@ -208,14 +214,27 @@ const Sidebar = () => {
                             )
                         })
                     }
+ 
                 </div>
-            </div>
-
-            {
+                {
                     editUserOpen && (
                         <EditUserDetails onClick={()=>setEditUserOpen((prev)=> !prev)} user={User}/>
                     )
-                }
+                        } 
+            </div>
+            <div className='fixed w-12 h-12 bg-slate-800 -mt-40  rounded-full flex items-center justify-center z-20' >
+                        <button className='' title={User.name} onClick={()=>setEditUserOpen(prev => !prev)}>
+                            <Avatar
+                                width={40}
+                                height={40}
+                                name={User?.name}
+                                imageUrl={User?.profile_pic}
+                                userId={User?._id}
+                            />
+                        </button>
+                        
+            </div>  
+                
     </div>
   )
 }

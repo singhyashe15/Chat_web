@@ -16,3 +16,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.chat-box::-webkit-scrollbar{
+  width: 6px;
+}
+
+.chat-box::-webkit-scrollbar-thumb{
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 10px;
+}
+
+.chat-box::-webkit-scrollbar-thumb:hover{
+  background-color: rgba(0,0,0,0.3);
+}
+.chat-box::-webkit-scrollbar-track{
+  background: transparent;
+}
