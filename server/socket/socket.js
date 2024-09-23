@@ -24,7 +24,7 @@ io.on("connection",async(socket) => { //This event listener is triggered wheneve
   const token = socket.handshake.auth.token;
   // sender details
   const user = await getUserDetailsFromToken(token)
-
+  console.log(token)
   //creating  a room
   socket.join(user?._id?.toString())
   onlineUser.add(user?._id?.toString())

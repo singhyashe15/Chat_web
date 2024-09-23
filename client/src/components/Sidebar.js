@@ -77,50 +77,34 @@ const Sidebar = () => {
         setSearch("")
         setSearchUser([])
     }
-    // let value = 0
-    // const clickedit = ()=>{
-    //     console.log("King")
-    //     value = 96
-    // }grid grid-cols-[50px,1fr]
   return (
     <div  className='w-full lg:w-96 px-4  bg-slate-600 fixed'>
-            {/* <div className= "bg-slate-400   rounded-tr-lg rounded-br-lg py-5 text-slate-600 flex flex-col justify-between ">
-                <div className='grid gap-8'>
-                    <button className='mx-auto p-2 text-black rounded-lg  hover:bg-slate-200'>
-                        <FaBars onClick={()=>clickedit()} />
-                    </button>
-                    <NavLink className={({isActive})=>`w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-slate-200 rounded-full ${isActive && "bg-slate-200"}`} title='chat'>
-                        <IoChatbubbleEllipses size={20} />
-                    </NavLink>
-                </div>
-
-                
-                    <button className='mx-auto mb-16' title={User.name} onClick={()=>setEditUserOpen(prev => !prev)}>
-                        <Avatar
-                            width={40}
-                            height={40}
-                            name={User?.name}
-                            imageUrl={User?.profile_pic}
-                            userId={User?._id}
-                        />
-                    </button>  
-            </div>  */}
-
             <div className='lg:w-80 sm:w-96'>
                 <div className='flex justify-between'>
-                    <div className='h-16 w-16 flex items-center'>
+                <div className='flex '>
+                <div className='h-16 w-16 flex items-center'>
                         <img 
                             src={ChatLogo}
-                            width={50}
-                            height={50}
+                            width={100}
+                            height={100}
                             alt='logo'
                         />
                     </div>
                     <div className='h-16 flex items-center'>
-                        <h2 className='text-xl font-bold p-4 text-slate-800'>Chats</h2>
+                        <h2 className='text-xl font-bold p-4 text-slate-800'>Chat Wave</h2>
                     </div>
-                    <div className='h-10 w-10 mt-4 flex items-center justify-center rounded  hover:bg-white ' title='New chat' >
-                        <FaRegEdit size={20} className='text-white hover:text-black '/>
+                </div>
+                    <div className='h-12 w-12 mt-4 bg-slate-800 rounded-full flex items-center justify-center'>
+                        {/* <FaRegEdit size={20} className='text-white hover:text-black '/> */}
+                        <button className='' title={User.name} onClick={()=>setEditUserOpen(prev => !prev)}>
+                            <Avatar
+                                width={40}
+                                height={40}
+                                name={User?.name}
+                                imageUrl={User?.profile_pic}
+                                userId={User?._id}
+                            />
+                        </button>
                     </div>
                 </div>
                 <div className='relative'>
@@ -221,18 +205,6 @@ const Sidebar = () => {
                         <EditUserDetails onClick={()=>setEditUserOpen((prev)=> !prev)} user={User}/>
                     )
                         } 
-            </div>
-            <div className='fixed w-12 h-12 bg-slate-800 -mt-40  rounded-full flex items-center justify-center z-20' >
-                        <button className='' title={User.name} onClick={()=>setEditUserOpen(prev => !prev)}>
-                            <Avatar
-                                width={40}
-                                height={40}
-                                name={User?.name}
-                                imageUrl={User?.profile_pic}
-                                userId={User?._id}
-                            />
-                        </button>
-                        
             </div>  
                 
     </div>

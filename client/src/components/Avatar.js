@@ -30,7 +30,7 @@ const Avatar = ({userId,name,imageUrl,width,height}) => {
                 />
             ) : (
                 name ? (
-                    <div  style={{width : width+"px", height : height+"px" }} className={`overflow-hidden rounded-full flex justify-center items-center text-lg bg-gray-200`}>
+                    <div  style={{width : width+"px", height : height+"px" }} className={`overflow-hidden rounded-full flex justify-center items-center text-xl bg-gray-200`}>
                         {avatarName}
                     </div>
                 ) :(

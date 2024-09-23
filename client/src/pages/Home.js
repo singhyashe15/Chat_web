@@ -4,12 +4,13 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { logout,setUser } from '../redux/userSlice'
 import Sidebar from '../components/Sidebar'
 import logo from '../assets/chatlogo.png'
+import { useSocket } from '../socket/socket';
 const Home = () => {
   const user = useSelector(state => state?.user)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const location = useLocation()
-
+  const socket = useSocket()
   const fetchUserDetails = useCallback(async () => {
     const URL = `${process.env.REACT_APP_BACKEND_URL}/api/user`
     try {
