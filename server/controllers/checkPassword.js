@@ -6,14 +6,19 @@ async function checkPassword(request,response){
     try {
         const { email,password } = request.body
         const user = await UserModel.findOne({email:email})
-        
+        if(!user) {
+            return response.status(400).json({
+                message:"Do check your email",
+                error:true
+            })
+        }
         const verifyPassword = await bcryptjs.compare(password,user.password)
 
         const jwtsecret = process.env.JWT_SECRET_KEY
         
         if(!verifyPassword){
             return response.status(400).json({
-                message : "Please check password",
+                message : "Do check your password",
                 error : true
             })
         }
@@ -23,8 +28,8 @@ async function checkPassword(request,response){
         }
         
         // const jwtsecret = process.env.JWT_SECRET_KEY
-    
         const token =  jwt.sign(tokenData,jwtsecret,{ expiresIn : '5d'})
+       
         const cookieOptions = {
             http : true,
             secure : true,
@@ -40,7 +45,7 @@ async function checkPassword(request,response){
     } catch (error) {
         return response.status(500).json({
             message : "Some error is there",
-            error : true
+            error : error
         })
     }
 }
