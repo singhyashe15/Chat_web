@@ -62,7 +62,6 @@ const RegisterPage = () => {
         })
    
         const res =  await response.json()
-        console.log("response",res)
 
         toast.success(res.message)
 
@@ -74,7 +73,7 @@ const RegisterPage = () => {
               profile_pic : ""
             })
             console.log("enetered")
-            navigate('/login')
+            navigate('/verifyemail')
 
         }
     } catch (error) {

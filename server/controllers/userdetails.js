@@ -1,4 +1,4 @@
-const userToken = require('../helpers/token')
+import userToken from '../helpers/token.js'
 const detail = async (req,res)=>{
   try{
     const token = req.cookies.token || "";
@@ -15,4 +15,4 @@ const detail = async (req,res)=>{
   }
 }
 
-module.exports = detail
+export default detail

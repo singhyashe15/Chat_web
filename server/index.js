@@ -1,17 +1,19 @@
-const express = require('express');
-const cors = require('cors')
-const http = require("http")
-const router = require("./routes/index")
-require('dotenv').config()
-const cookiesParser = require('cookie-parser')
-const connectDB = require('./config/database')
+import express from "express";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import http from 'http'
+import router from './routes/index.js'
+import dotenv from "dotenv";
+dotenv.config()
+import {connectDB} from './config/database.js'
 
-const {app,server} = require('./socket/socket')
+
+import {app,server} from './socket/socket.js'
 
 
 // connect fronted https://chat-web-rho-nine.vercel.app
 app.use(cors({
-  origin: 'https://chat-web-rho-nine.vercel.app',
+  origin: 'http://localhost:3000',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allow necessary methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
@@ -19,7 +21,8 @@ app.use(cors({
 }));
 
 app.use(express.json());
-app.use(cookiesParser())
+app.use(express.text())
+app.use(cookieParser())
 
 const PORT = process.env.PORT || 5000
 

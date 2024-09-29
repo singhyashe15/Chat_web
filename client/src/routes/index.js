@@ -5,6 +5,7 @@ import CheckEmailPage from "../pages/CheckEmailPage";
 import Home from "../pages/Home";
 import MessagePage from "../components/MessagePage";
 import Forgotpassword from "../pages/Forgotpassword";
+import VerifyEmail from "../pages/verifyEmail";
 import Routers from "./router";
 const router = createBrowserRouter([
 {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
         {
             path : 'forgot-password',
             element : <Forgotpassword/>
+        },
+        {
+            path : "verifyemail",
+            element :<VerifyEmail/>
         },
         {    
             path : "",

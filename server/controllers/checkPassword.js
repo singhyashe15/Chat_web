@@ -1,8 +1,8 @@
-const UserModel = require("../models/user")
-const bcryptjs = require('bcryptjs')
-const jwt = require('jsonwebtoken')
+import UserModel from '../models/user.js';
+import bcryptjs from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 
-async function checkPassword(request,response){
+const  checkPassword = async(request,response) => {
     try {
         const { email,password } = request.body
         const user = await UserModel.findOne({email:email})
@@ -50,4 +50,4 @@ async function checkPassword(request,response){
     }
 }
 
-module.exports = checkPassword
+export default checkPassword 

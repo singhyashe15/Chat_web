@@ -1,4 +1,4 @@
-const { ConversationModel } = require("../models/conversation")
+import {ConversationModel} from "../models/conversation.js"
 
 const getConversation = async(currentUserId)=>{
     
@@ -43,4 +43,4 @@ const getConversation = async(currentUserId)=>{
     }
 }
 
-module.exports = getConversation
+export default getConversation

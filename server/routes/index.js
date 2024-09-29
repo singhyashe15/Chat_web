@@ -1,13 +1,14 @@
-const express = require('express')
-const registerUser = require('../controllers/register')
-const checkPassword = require('../controllers/checkPassword')
-const userDetails = require('../controllers/userdetails')
+import express from 'express'
+import registerUser from '../controllers/register.js'
+import checkPassword from '../controllers/checkPassword.js'
+import userDetails from '../controllers/userdetails.js'
 // const logout = require('../controllers/logout')
-const updateUserDetails = require('../controllers/updatedetails')
-const searchUser = require('../controllers/search')
-const deleteMsg = require('../controllers/deletemsg')
-const router = express.Router()
+import updateUserDetails from '../controllers/updatedetails.js'
+import searchUser from '../controllers/search.js'
+import deleteMsg from '../controllers/deletemsg.js'
+import VerifyEmail from '../controllers/auth.js'
 
+const router = express.Router()
 //create user api
 router.post('/register',registerUser)
 //check user user
@@ -22,4 +23,6 @@ router.post('/update-user',updateUserDetails)
 router.post("/search-user",searchUser)
 router.post("/deletemsg",deleteMsg)
 
-module.exports = router
+router.post("/verifyemail",VerifyEmail)
+
+export default router

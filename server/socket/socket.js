@@ -1,10 +1,10 @@
-const express = require("express");
-const {Server} = require("socket.io")
-const http = require("http");
-const {Messagemodel,ConversationModel} = require("../models/conversation")
-const UserModel = require("../models/user")
-const getUserDetailsFromToken =  require("../helpers/token")
-const getConversationMessage = require("../helpers/getconversation")
+import express from "express";
+import {Server } from "socket.io"
+import http from "http";
+import  {Messagemodel,ConversationModel} from "../models/conversation.js"
+import UserModel from "../models/user.js"
+import getUserDetailsFromToken from "../helpers/token.js"
+import getConversationMessage from "../helpers/getconversation.js"
 const app = express();
 const server = http.createServer(app)
 
@@ -24,11 +24,11 @@ io.on("connection",async(socket) => { //This event listener is triggered wheneve
   const token = socket.handshake.auth.token;
   // sender details
   const user = await getUserDetailsFromToken(token)
-  console.log(token)
+ 
   //creating  a room
   socket.join(user?._id?.toString())
   onlineUser.add(user?._id?.toString())
-  console.log(user?._id)
+ 
   io.emit('onlineUser',Array.from(onlineUser))
  
   // receiver-details
@@ -152,6 +152,4 @@ io.on("connection",async(socket) => { //This event listener is triggered wheneve
   
 })
 
-module.exports ={
-  app,server
-}
+export {app,server}

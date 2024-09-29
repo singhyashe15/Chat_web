@@ -69,7 +69,6 @@ const SearchUser = ({onClose}) => {
                 {
                     searchUser.length !==0 && !loading && (
                         searchUser.map((user,index)=>{
-                            console.log("User is " + User._id)
                             return(
                                 user._id !== User._id &&
                                 <UserSearchCard key={user._id} user={user} onClose={onClose}/>

@@ -1,4 +1,4 @@
-const {Messagemodel} = require("../models/conversation");
+import { Messagemodel } from "../models/conversation.js"
 
 const Deletemsg = async(req,res)=>{
  try {
@@ -22,4 +22,4 @@ const Deletemsg = async(req,res)=>{
  }
 }
 
-module.exports = Deletemsg; 
+export default Deletemsg; 

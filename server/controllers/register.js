@@ -1,10 +1,14 @@
-const User = require("../models/user");
-const bcryptjs = require("bcryptjs")
+import UserModel from '../models/user.js';
+import verificationCode from '../models/verification.js';
+import sendEmail from './sendemail.js'
+import bcryptjs from 'bcryptjs'
+import {customAlphabet} from 'nanoid'
 
 const register = async(req,res)=>{
   try{
     const {name,email,password,profile_pic} = req.body;
-    const checkEmail = await User.findOne({email});
+    const checkEmail = await UserModel.findOne({email});
+    
     // if found
     if(checkEmail){
       return res.status(400).json({
@@ -20,8 +24,26 @@ const register = async(req,res)=>{
       name,email,password:hashPass,profile_pic
     }
     
-    const user = new User(payload); // storing the data
+    const user = new UserModel(payload); // storing the data
     const savedata = await user.save();
+
+    // generating the verification code
+    const code = customAlphabet('1234567890',5)
+    const newcode = code()
+    
+    const data = {
+      email:email,
+      Verificationcode:newcode
+    }
+    // storing in the db
+    const model = new verificationCode(data)
+    await model.save()
+
+    // sending the mail
+    const user_email = process.env.EMAIL_USER
+    const user_pass = process.env.EMAIL_PASS
+    
+    await sendEmail(email,newcode,user_email,user_pass);
 
     return res.status(201).json({
       message:"Registered",
@@ -36,4 +58,4 @@ const register = async(req,res)=>{
   }
 }
 
-module.exports = register;
+export default register;

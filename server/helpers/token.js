@@ -1,5 +1,5 @@
-const jwt = require("jsonwebtoken");
-const User = require("../models/user");
+import jwt from "jsonwebtoken";
+import User from "../models/user.js";
 
 const gettoken = async(token)=>{
   if(!token){
@@ -13,5 +13,4 @@ const gettoken = async(token)=>{
   const user = await User.findById(get.id).select("-password");
   return user
 }
-
-module.exports = gettoken;
+export default gettoken;
