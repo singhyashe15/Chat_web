@@ -77,6 +77,11 @@ const Sidebar = () => {
         setSearch("")
         setSearchUser([])
     }
+
+    useEffect(()=>{
+        setSearch("")
+        setSearchUser([])
+    },[])
   return (
     <div  className='w-full lg:w-96 px-4  bg-slate-600 fixed'>
             <div className='lg:w-80 sm:w-96'>
@@ -133,7 +138,7 @@ const Sidebar = () => {
                         )
                     }
                     {
-                        allUser.length === 0 && searchUser.length === 0 && (
+                        allUser.length === 0  && (
                             <div className='mt-12'>
                                 <div className='flex justify-center items-center my-4 text-slate-500'>
                                     <FiArrowUpLeft

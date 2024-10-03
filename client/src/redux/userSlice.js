@@ -5,6 +5,7 @@ const initialState = {
   name : "",
   email : "",
   profile_pic : "",
+  quotes:"",
   token : "",
   login:false,
   onlineUser : [],
@@ -19,6 +20,7 @@ export const userSlice = createSlice({
         state.name = action.payload.name 
         state.email = action.payload.email 
         state.profile_pic = action.payload.profile_pic 
+        state.quotes = action.payload.quotes
     },
     setToken : (state,action)=>{
         state.token = action.payload

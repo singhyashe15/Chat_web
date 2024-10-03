@@ -14,11 +14,14 @@ const EditUserDetails = ({onClick,user}) => {
     const User = useSelector(state => state.user)
     const [data,setData] = useState({
         name : user?.user,
+        quotes:user?.quotes,
         profile_pic : user?.profile_pic
     })
     const [isEditable,setEditable] = useState(false)
+    const [isEditablequotes,setisEditablequotes]  = useState(false)
     const uploadPhotoRef = useRef()
     const inputref = useRef(null)
+    const input2ref = useRef(null)
     const dispatch = useDispatch()
     const {socket} = useSocket()
     const navigate = useNavigate()
@@ -40,7 +43,9 @@ const EditUserDetails = ({onClick,user}) => {
                 [name] : value
             }
         })
+
     }
+
 
     const handleOpenUploadPhoto = (e)=>{
         e.preventDefault()
@@ -60,7 +65,7 @@ const EditUserDetails = ({onClick,user}) => {
         }
         })
     }
-
+    // updating the details
     const handleSubmit = async(e)=>{
         // e.preventDefault()
         // e.stopPropagation()
@@ -92,7 +97,15 @@ const EditUserDetails = ({onClick,user}) => {
     const handle = ()=>{
         setEditable(!isEditable)
         if(inputref.current && isEditable){
-            inputref.current.focus()
+            inputref.current.focus();
+        }
+    }
+
+
+    const handlequotes = ()=>{
+        setisEditablequotes(!isEditablequotes)
+        if(input2ref.current && isEditablequotes){
+            input2ref.current.focus();
         }
     }
 
@@ -108,6 +121,7 @@ const EditUserDetails = ({onClick,user}) => {
         navigate("/login")
         localStorage.clear()
     }
+
   return (
     <div  className='fixed top-96  ml-2  bg-gray-700 flex rounded-lg z-50'>
         <div className=' p-4 py-6 m-1 rounded w-full max-w-xs'>
@@ -134,19 +148,31 @@ const EditUserDetails = ({onClick,user}) => {
                         id='name'
                         value={data?.name || ''}
                         onChange={handleOnChange}
-                        className= 'py-1 px-2 focus:outline-primary border-0.5 bg-transparent text-white'
+                        className= 'py-1 px-2 f border-0.5 bg-transparent text-white outline-none'
                         style={{width:'15rem'}}
                         ref={inputref}
                         disabled={!isEditable}
                     />
                     <div className='ml-2 flex justify-center items-center w-10 h-10 cursor-pointer border-2 rounded-full active:bg-gray-400 active:text-blue-300' >
-                    <FaPencilAlt  onClick={()=>handle()} />
+                        <FaPencilAlt  onClick={()=>handle()} />
                     </div>
                 </div>
-
-                    <div className='my-1 flex items-center gap-4'>
-                       <span className='text-white text-lg' > {data?.email} </span>
+                <div className='flex mt-4 mb-4'>
+                    <input
+                        type='text'
+                        name='quotes'
+                        id='name'
+                        value={data?.quotes || ''}
+                        onChange={handleOnChange}
+                        className= 'py-1 px-2  border-0.5 bg-transparent text-white outline-none'
+                        style={{width:'15rem'}}
+                        ref={input2ref}
+                        disabled={!isEditablequotes}
+                    />
+                    <div className='ml-2 flex justify-center items-center w-10 h-10 cursor-pointer border-2 rounded-full active:bg-gray-400 active:text-blue-300' >
+                        <FaPencilAlt  onClick={()=>handlequotes()} />
                     </div>
+                </div>
 
                 <div className='flex gap-2 w-fit ml-auto '>
                     <button onClick={onClick} className='border-primary border text-white px-4 py-1 rounded hover:bg-slate-400 hover:text-black'>Cancel</button>

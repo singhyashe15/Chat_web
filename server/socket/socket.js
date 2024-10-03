@@ -10,7 +10,7 @@ const server = http.createServer(app)
 
 const io = new Server(server,{
   cors:{
-    options:"https://chat-web-rho-nine.vercel.app",
+    options:process.env.Fronted_Url,
     methods:["GET","POST"],
     credentials : true
   }
