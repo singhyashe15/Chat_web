@@ -11,9 +11,8 @@ import {connectDB} from './config/database.js'
 import {app,server} from './socket/socket.js'
 
 
-// connect fronted https://chat-web-rho-nine.vercel.app
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: process.env.Fronted_Url,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allow necessary methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
