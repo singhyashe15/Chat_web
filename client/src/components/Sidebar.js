@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState,useCallback } from 'react'
-import { IoChatbubbleEllipses } from "react-icons/io5";
 import { NavLink} from 'react-router-dom';
 import Avatar from './Avatar'
 import { useSelector } from 'react-redux';
@@ -10,7 +9,6 @@ import UserSearchCard from './UserSearchCard';
 import toast from 'react-hot-toast'
 import axios from 'axios';
 import { FaImage,FaVideo  } from "react-icons/fa6";
-import { FaRegEdit } from 'react-icons/fa';
 import { IoClose } from "react-icons/io5";
 import { useSocket } from '../socket/socket';
 import ChatLogo from '../assets/chatlogo.png'

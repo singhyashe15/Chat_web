@@ -2,7 +2,7 @@ import verificationCode from '../models/verification.js';
 
 const VerifyEmail = async(req,res)=>{
   const code = req.body;
-  console.log(code)
+ 
   try {
     const authenticate = await verificationCode.findOne({Verificationcode:code})
     await verificationCode.deleteOne({Verificationcode:code})

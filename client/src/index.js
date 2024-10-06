@@ -8,15 +8,19 @@ import router from './routes';
 import { Provider } from 'react-redux';
 import {store} from './redux/store'
 import { SocketProvider } from './socket/socket';
+import { ChakraProvider } from '@chakra-ui/react';
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
-  <Provider store={store}>
-  <SocketProvider>
-      <RouterProvider router={router}>
-        <App />
-      </RouterProvider>
-      </SocketProvider>
+    <Provider store={store}>
+      <ChakraProvider>
+        <SocketProvider>
+          <RouterProvider router={router}>
+             <App />
+          </RouterProvider>
+        </SocketProvider>
+      </ChakraProvider>
     </Provider>
   </React.StrictMode>
 );
