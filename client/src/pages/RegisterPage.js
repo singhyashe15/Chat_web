@@ -51,7 +51,7 @@ const RegisterPage = () => {
     e.stopPropagation()
 
     const URL = `${process.env.REACT_APP_BACKEND_URL}/api/register`
-
+    console.log(URL)
     try {
         const response = await fetch(URL,{
           method:'POST',
