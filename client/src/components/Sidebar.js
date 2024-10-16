@@ -111,6 +111,12 @@ const Sidebar = () => {
                         </button>
                     </div>
                 </div>
+                {
+                    editUserOpen && (
+                        <EditUserDetails onClick={()=>setEditUserOpen((prev)=> !prev)} user={User}/>
+                    )
+                } 
+                                
                 <div className='relative'>
                 <input
                     placeholder='Search' 
