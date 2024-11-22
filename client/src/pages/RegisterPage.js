@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import uploadFile from '../helpers/uploadFile';
 import chatLogo from '../assets/chatlogo.png'
 import toast from 'react-hot-toast';
-import { Button } from '@chakra-ui/react';
+
 const RegisterPage = () => {
   const [data,setData] = useState({
     name : "",
@@ -166,7 +166,8 @@ const RegisterPage = () => {
               </div>
 
 
-              <Button colorScheme='cyan' px-4 py-1 mt-2 >
+              <button
+               className='bg-slate-500 text-lg  px-4 py-1  rounded-full mt-2 font-bold text-black leading-relaxed tracking-wide hover:bg-violet-500'>
                 Register
               </Button>
 
