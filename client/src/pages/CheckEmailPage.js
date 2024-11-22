@@ -100,7 +100,7 @@ const CheckEmailPage = () => {
               <button
                className='bg-blue-500 text-lg  px-4 py-1 hover:bg-blue-300 hover:text-green-700 rounded-full mt-8 font-bold text-black leading-relaxed tracking-wide'>
                 Let's Start
-              </Button>
+                 </button>
           </form>
           <div className='flex justify-evenly mt-4'>
           <div className=''><Link to={"/forgot-password"} className='hover:text-red-500 font-semibold'>Forgot password</Link></div>
