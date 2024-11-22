@@ -5,7 +5,6 @@ import { PiUserCircle } from "react-icons/pi";
 import { useDispatch } from 'react-redux';
 import { setToken } from '../redux/userSlice';
 import chatLogo from '../assets/chatlogo.png'
-import { Button } from '@chakra-ui/react';
 const CheckEmailPage = () => {
   const [data,setData] = useState({
     email : "",password:""
@@ -98,7 +97,8 @@ const CheckEmailPage = () => {
                   autoComplete='off'
                 />
               </div>
-              <Button colorScheme='cyan' px-4 py-1  mt-8 >
+              <button
+               className='bg-blue-500 text-lg  px-4 py-1 hover:bg-blue-300 hover:text-green-700 rounded-full mt-8 font-bold text-black leading-relaxed tracking-wide'>
                 Let's Start
               </Button>
           </form>
