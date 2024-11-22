@@ -12,7 +12,7 @@ import { IoMdSend } from "react-icons/io";
 import moment from 'moment'
 import { useSocket } from '../socket/socket';
 import toast from 'react-hot-toast';
-import Loading from './Loading'
+import {Spinner} from '@chakra-ui/react'
 
 const MessagePage = () => {
   const params = useParams()
@@ -311,7 +311,7 @@ const MessagePage = () => {
                   {
                     loading && (
                       <div className='w-full h-full flex sticky bottom-0 justify-center items-center'>
-                        <Loading/>
+                        <Spinner/>
                       </div>
                     )
                   }

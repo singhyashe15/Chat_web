@@ -11,25 +11,29 @@ const Forgotpassword = () => {
   const  navigate = useNavigate()
 
   const checkVerified = async()=>{
+    if(email === ""){
+      toast.error("Enter Your Email")
+    }else{
+      const url = `${process.env.REACT_APP_BACKEND_URL}/api/verify`
+      try {
+        let res  = await fetch(url,{
+          method:"POST",
+          body:email,
+          headers:{
+            'Content-type':'text/plain'
+          }
+        })
     
-    const url = `${process.env.REACT_APP_BACKEND_URL}/api/verify`
-    try {
-      let res  = await fetch(url,{
-        method:"POST",
-        body:email,
-        headers:{
-          'Content-type':'text/plain'
+        res = await res.json();
+        if(res.success){
+          setverify(true);
+          toast.success("User Verified")
         }
-      })
-  
-      res = await res.json();
-      if(res.success){
-        setverify(true);
-        toast.success("User Verified")
+      } catch (error) {
+        toast.error("Check Your Email")
       }
-    } catch (error) {
-      toast.error("Check Your Email")
     }
+    
   }
 
   const Submit = async ()=>{

@@ -4,7 +4,6 @@ import Avatar from './Avatar'
 import { useSelector } from 'react-redux';
 import EditUserDetails from './EditUserDetails';
 import { FiArrowUpLeft } from "react-icons/fi";
-// import Loading from './Loading';
 import UserSearchCard from './UserSearchCard';
 import toast from 'react-hot-toast'
 import axios from 'axios';
@@ -13,13 +12,13 @@ import { IoClose } from "react-icons/io5";
 import { useSocket } from '../socket/socket';
 import ChatLogo from '../assets/chatlogo.png'
 import moment from 'moment'
+
 const Sidebar = () => {
     const User = useSelector(state => state?.user)
     const [editUserOpen,setEditUserOpen] = useState(false)
     const [allUser,setAllUser] = useState([])
     const [search,setSearch] = useState("")
     const [searchUser,setSearchUser] = useState([])
-    const [loading,setLoading] = useState(false)
    
     const { socket} = useSocket();
     const inputref = useRef()
@@ -57,9 +56,7 @@ const Sidebar = () => {
     const handleSearchUser = useCallback(async () => {
         const URL = `${process.env.REACT_APP_BACKEND_URL}/api/search-user`
         try {
-            setLoading(true)
             const response = await axios.post(URL, { search });
-            setLoading(false);
             setSearchUser(response.data.data);
         } catch (error) {
             toast.error(error?.response?.data?.message);
@@ -110,6 +107,11 @@ const Sidebar = () => {
                         </button>
                     </div>
                 </div>
+                {
+                    editUserOpen && (
+                        <EditUserDetails onClick={()=>setEditUserOpen((prev)=> !prev)} user={User}/>
+                    )
+                        } 
                 <div className='relative'>
                 <input
                     placeholder='Search' 
@@ -125,7 +127,7 @@ const Sidebar = () => {
                  
                 <div className='chat-box h-[calc(100vh-65px)] overflow-y-auto overflow-hidden scrollbar'>
                     { 
-                        searchUser.length !== 0 && !loading  &&(
+                        searchUser.length !== 0  &&(
                             searchUser.map((user,index)=>{
                                 
                                 return(
@@ -202,14 +204,8 @@ const Sidebar = () => {
                         })
                     }
  
-                </div>
-                {
-                    editUserOpen && (
-                        <EditUserDetails onClick={()=>setEditUserOpen((prev)=> !prev)} user={User}/>
-                    )
-                        } 
+                </div>   
             </div>  
-                
     </div>
   )
 }

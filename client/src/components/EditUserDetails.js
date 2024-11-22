@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setUser,logout,setOnlineUser } from '../redux/userSlice'
 import { useNavigate } from 'react-router-dom';
 import { useSocket } from '../socket/socket';
+import { Button } from '@chakra-ui/react'
 
 const EditUserDetails = ({onClick,user}) => {
     const User = useSelector(state => state.user)
@@ -123,10 +124,10 @@ const EditUserDetails = ({onClick,user}) => {
     }
 
   return (
-    <div  className='fixed top-96  ml-2  bg-gray-700 flex rounded-lg z-50'>
-        <div className=' p-4 py-6 m-1 rounded w-full max-w-xs'>
+    <div  className='fixed  ml-2 bg-gray-700 flex rounded-lg z-50'>
+        <div className=' p-4 py-6  mb-4 rounded w-full max-w-xs'>
             <div className='mb-5'>
-                <div className='my-1 w-24 flex items-center cursor-pointer ' onClick={handleOpenUploadPhoto} >
+                <div className='my-1 w-24 flex items-center cursor-pointer ' onClick={handleOpenUploadPhoto} title='Edit the Profile' >
                         <Avatar 
                             width={80}
                             height={80}
@@ -143,7 +144,6 @@ const EditUserDetails = ({onClick,user}) => {
             </div>
                 <div className='flex'>
                     <input
-                        type='text'
                         name='name'
                         id='name'
                         value={data?.name || ''}
@@ -159,9 +159,9 @@ const EditUserDetails = ({onClick,user}) => {
                 </div>
                 <div className='flex mt-4 mb-4'>
                     <input
-                        type='text'
                         name='quotes'
                         id='name'
+                        placeholder='About'
                         value={data?.quotes || ''}
                         onChange={handleOnChange}
                         className= 'py-1 px-2  border-0.5 bg-transparent text-white outline-none'
@@ -175,8 +175,8 @@ const EditUserDetails = ({onClick,user}) => {
                 </div>
 
                 <div className='flex gap-2 w-fit ml-auto '>
-                    <button onClick={onClick} className='border-primary border text-white px-4 py-1 rounded hover:bg-slate-400 hover:text-black'>Cancel</button>
-                    <button onClick={()=>{handleSubmit()}} className='border-primary text-white bg-primary  border px-4 py-1 rounded hover:bg-slate-400 hover:text-black'>Save</button>
+                    <Button onClick={onClick} colorScheme='cyan'  px-4 py-1  >Cancel</Button>
+                    <Button onClick={()=>{handleSubmit()}} colorScheme='cyan' px-4 py-1 >Save</Button>
                 </div>
                 <button title='logout' className='w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-slate-200 rounded-full ' onClick={handlelogout}>
                         <span className='-ml-2'>
