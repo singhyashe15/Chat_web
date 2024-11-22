@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setUser,logout,setOnlineUser } from '../redux/userSlice'
 import { useNavigate } from 'react-router-dom';
 import { useSocket } from '../socket/socket';
-import { Button } from '@chakra-ui/react'
 
 const EditUserDetails = ({onClick,user}) => {
     const User = useSelector(state => state.user)
@@ -175,8 +174,8 @@ const EditUserDetails = ({onClick,user}) => {
                 </div>
 
                 <div className='flex gap-2 w-fit ml-auto '>
-                    <Button onClick={onClick} colorScheme='cyan'  px-4 py-1  >Cancel</Button>
-                    <Button onClick={()=>{handleSubmit()}} colorScheme='cyan' px-4 py-1 >Save</Button>
+                    <button onClick={onClick} className='border-primary border text-white px-4 py-1 rounded hover:bg-slate-400 hover:text-black'>Cancel</button>
+                    <button onClick={()=>{handleSubmit()}} className='border-primary text-white bg-primary  border px-4 py-1 rounded hover:bg-slate-400 hover:text-black'>Save</button>
                 </div>
                 <button title='logout' className='w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-slate-200 rounded-full ' onClick={handlelogout}>
                         <span className='-ml-2'>
