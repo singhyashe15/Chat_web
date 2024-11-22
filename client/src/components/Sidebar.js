@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import EditUserDetails from './EditUserDetails';
 import { FiArrowUpLeft } from "react-icons/fi";
 import UserSearchCard from './UserSearchCard';
-import toast from 'react-hot-toast'
+import toast from 'react-hot-toast';
 import axios from 'axios';
 import { FaImage,FaVideo  } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
@@ -107,11 +107,6 @@ const Sidebar = () => {
                         </button>
                     </div>
                 </div>
-                {
-                    editUserOpen && (
-                        <EditUserDetails onClick={()=>setEditUserOpen((prev)=> !prev)} user={User}/>
-                    )
-                        } 
                 <div className='relative'>
                 <input
                     placeholder='Search' 
