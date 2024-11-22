@@ -172,7 +172,7 @@ const RegisterPage = () => {
 
           </form>
 
-          <p className='my-3 text-center'>Already have account ? <Link to={"/login"} className='hover:text-green-700 font-semibold'>Login</Link></p>
+          <p className='my-3 text-center'>Already have account ? <Link to={"/login"} className='hover:text-green-700 font-semibold'>LOGIN</Link></p>
         </div>
     </div>
   )
