@@ -169,7 +169,7 @@ const RegisterPage = () => {
               <button
                className='bg-slate-500 text-lg  px-4 py-1  rounded-full mt-2 font-bold text-black leading-relaxed tracking-wide hover:bg-violet-500'>
                 Register
-              </Button>
+                 </button>
 
           </form>
 
