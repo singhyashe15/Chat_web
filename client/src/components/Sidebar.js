@@ -106,6 +106,9 @@ const Sidebar = () => {
                             />
                         </button>
                     </div>
+                    {
+                        editUserOpen && <EditUserDetails/>
+                    }
                 </div>
                 <div className='relative'>
                 <input
