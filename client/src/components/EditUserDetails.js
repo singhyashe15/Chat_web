@@ -10,7 +10,7 @@ import { setUser,logout,setOnlineUser } from '../redux/userSlice'
 import { useNavigate } from 'react-router-dom';
 import { useSocket } from '../socket/socket';
 
-const EditUserDetails = ({onClick,user}) => {
+const EditUserDetails = ({onClose,user}) => {
     const User = useSelector(state => state.user)
     const [data,setData] = useState({
         name : user?.user,
@@ -84,7 +84,7 @@ const EditUserDetails = ({onClick,user}) => {
             
             if(response.data.success){
                 dispatch(setUser(response.data.data))
-                onClick()
+                onClose()
             }
          
         } catch (error) {
@@ -174,7 +174,7 @@ const EditUserDetails = ({onClick,user}) => {
                 </div>
 
                 <div className='flex gap-2 w-fit ml-auto '>
-                    <button onClick={onClick} className='border-primary border text-white px-4 py-1 rounded hover:bg-slate-400 hover:text-black'>Cancel</button>
+                    <button onClick={onClose} className='border-primary border text-white px-4 py-1 rounded hover:bg-slate-400 hover:text-black'>Cancel</button>
                     <button onClick={()=>{handleSubmit()}} className='border-primary text-white bg-primary  border px-4 py-1 rounded hover:bg-slate-400 hover:text-black'>Save</button>
                 </div>
                 <button title='logout' className='w-12 h-12 flex justify-center items-center cursor-pointer hover:bg-slate-200 rounded-full ' onClick={handlelogout}>
