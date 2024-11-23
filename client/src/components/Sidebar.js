@@ -107,7 +107,7 @@ const Sidebar = () => {
                         </button>
                     </div>
                     {
-                        editUserOpen && <EditUserDetails/>
+                        editUserOpen && <EditUserDetails onClose={()=>setEditUserOpen(false)} user={User}/>
                     }
                 </div>
                 <div className='relative'>
