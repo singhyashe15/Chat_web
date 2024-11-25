@@ -317,7 +317,7 @@ const MessagePage = () => {
                   }
                   {
                     del && <div className='w-full h-full sticky bottom-0  bg-slate-700 bg-opacity-30 flex  justify-center overflow-hidden  '>
-                    <div className='flex flex-col justify-center items-center bg-slate-600 my-60 px-4 rounded-xl'>
+                    <div className='flex flex-col justify-center items-center bg-slate-600 my-44 sm:my-45 md:my-44 lg:my-60 px-4 rounded-xl'>
                       <div className='mt-4'>
                         <p className='italic font-bold text-lime-300 text-xl'>Delete message?</p>
                         </div>
