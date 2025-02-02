@@ -7,6 +7,7 @@ import {customAlphabet} from 'nanoid'
 const register = async(req,res)=>{
   try{
     const {name,email,password,profile_pic} = req.body;
+    console.log(process.env.MONGODB_URL);
     const checkEmail = await UserModel.findOne({email});
     
     // if found
