@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import { PiUserCircle } from "react-icons/pi";
 import { useDispatch } from 'react-redux';
 import { setToken } from '../redux/userSlice';
-import chatLogo from '../assets/chatlogo.png'
+
 const CheckEmailPage = () => {
   const [data,setData] = useState({
     email : "",password:""
