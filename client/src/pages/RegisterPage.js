@@ -3,7 +3,7 @@ import { IoClose } from "react-icons/io5";
 import { Link, useNavigate } from 'react-router-dom';
 import uploadFile from '../helpers/uploadFile';
 import toast from 'react-hot-toast';
-
+import { Button } from '@chakra-ui/react';
 const RegisterPage = () => {
   const [data,setData] = useState({
     name : "",
