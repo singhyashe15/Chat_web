@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { IoClose } from "react-icons/io5";
 import { Link, useNavigate } from 'react-router-dom';
 import uploadFile from '../helpers/uploadFile';
-import chatLogo from '../assets/chatlogo.png'
 import toast from 'react-hot-toast';
 
 const RegisterPage = () => {
