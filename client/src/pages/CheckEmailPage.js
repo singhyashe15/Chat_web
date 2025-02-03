@@ -55,21 +55,12 @@ const CheckEmailPage = () => {
   return (
     <div className='w-full h-full flex items-center justify-center' >
         <div className='h-96 w-full max-w-md border-2 border-blue-900 rounded-[3.25rem] overflow-hidden p-4 mt-24 '>
-        <div className='h-1 mx-auto' >
-            <img
-              src={chatLogo} //logo
-              width={20}
-              height={20}
-              alt='logo'
-              className='w-80  mt-4 mx-auto'
-              />
-          </div>
             <div className='w-fit mx-auto mb-2  -mt-4'>
                 <PiUserCircle
                   size={80}
                 />
             </div>
-          <h3 className='font-bold italic text-lg text-center -mt-4'>Welcome to Chat app!</h3>
+           <h3 className='font-bold italic text-lg text-center -mt-4'>Login Here</h3>
           <form className='grid gap-4 mt-3 ' onSubmit={handleSubmit}>
               <div className='flex flex-col gap-1 mt-5'>
                 <input
