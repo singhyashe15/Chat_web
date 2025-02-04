@@ -1,5 +1,4 @@
-let cloud = "dkz1kjotp"
-const url = `https://api.cloudinary.com/v1_1/${cloud}/image/upload`
+const url = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_CLOUD_NAME}/image/upload`
 
 const uploadFile = async(file)=>{
     const formData = new FormData()
