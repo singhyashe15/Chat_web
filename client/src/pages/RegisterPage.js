@@ -48,7 +48,7 @@ const RegisterPage = () => {
   const handleSubmit = async(e)=>{
     e.preventDefault()
     e.stopPropagation()
-    if(name.length == 0 || email.length == 0 || password.length == 0){
+    if(data.name.length == 0 || data.email.length == 0 || data.password.length == 0){
       toast.error("Fill all the details")
       throw Error("Fill the details")
     }
