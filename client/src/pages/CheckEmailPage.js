@@ -24,6 +24,10 @@ const CheckEmailPage = () => {
   const handleSubmit = async(e)=>{
     e.preventDefault()
     e.stopPropagation()
+    if(data.email.length == 0 || data.password.length == 0){
+      toast.error("Fill all the details")
+      throw Error("Fill all the details")
+    }
     const URL = `${process.env.REACT_APP_BACKEND_URL}/api/email`
     
     try {
