@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import { PiUserCircle } from "react-icons/pi";
 import { useDispatch } from 'react-redux';
 import { setToken } from '../redux/userSlice';
-
+import {FaGoogle} from 'react-icons/fa'
 const CheckEmailPage = () => {
   const [data,setData] = useState({
     email : "",password:""
@@ -19,6 +19,9 @@ const CheckEmailPage = () => {
           [name] : value
       }
     })
+  }
+    const handle = async()=>{
+    window.open(`${process.env.REACT_APP_BACKEND_URL}/auth/google`, "_self");
   }
 
   const handleSubmit = async(e)=>{
@@ -100,6 +103,11 @@ const CheckEmailPage = () => {
           <div className='flex justify-evenly mt-4'>
           <div className=''><Link to={"/forgot-password"} className='hover:text-red-500 font-semibold'>Forgot password</Link></div>
           <div className=' text-center'>New User ?<Link to={"/register"} className='hover:text-green-500 font-semibold'>Register</Link></div>
+          </div>
+          
+          <div onClick={handle} className="flex justify-center gap-2 px-4 py-2 bg-white border border-black rounded-md shadow-md hover:shadow-lg transition duration-300 cursor-pointer">
+            <FaGoogle className="text-red-500 mt-1"/>
+            <span className="text-gray-700 font-medium">Sign in with Google</span>
           </div>
         </div>
     </div>
