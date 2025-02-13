@@ -32,4 +32,6 @@ router.post('/reset-password',ResetPassword)
 // verifing the email
 router.post('/verify',verify)
 
+// get the token
+router.get('/token',Gettoken)
 export default router
