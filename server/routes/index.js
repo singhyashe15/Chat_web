@@ -9,6 +9,7 @@ import deleteMsg from '../controllers/deletemsg.js'
 import VerifyEmail from '../controllers/auth.js'
 import ResetPassword from '../controllers/reset-password.js'
 import verify from '../controllers/verify.js'
+import Gettoken from '../helpers/gettoken.js'
 
 const router = express.Router()
 //create user api
