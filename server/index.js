@@ -6,7 +6,8 @@ import router from './routes/index.js'
 import dotenv from "dotenv";
 dotenv.config()
 import {connectDB} from './config/database.js'
-
+import passport from "passport";
+import './config/google-strategy.js'
 
 import {app,server} from './socket/socket.js'
 
@@ -22,6 +23,30 @@ app.use(cors({
 app.use(express.json());
 app.use(express.text())
 app.use(cookieParser())
+app.use(passport.initialize()); 
+
+
+app.get('/auth/google', passport.authenticate('google', {session: false,scope: ['profile','email'] }));
+
+
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    session: false,
+    failureRedirect: `${process.env.Fronted_Url}/login`,
+  }),
+  (req, res) => {
+    const accessToken = req.authInfo;
+    console.log(accessToken)
+   
+    res.cookie('token',accessToken,{
+      httpOnly: true,  // Prevents client-side access for security
+      sameSite: 'Strict',
+    });
+    
+    res.redirect(`${process.env.Fronted_Url}/authemail`); // Redirect to frontend
+  }
+);
 
 const PORT = process.env.PORT || 5000
 
