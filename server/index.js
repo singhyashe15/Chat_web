@@ -26,9 +26,14 @@ app.use(cookieParser())
 app.use(passport.initialize()); 
 
 
-app.get('/auth/google', passport.authenticate('google', {session: false,scope: ['profile','email'] }));
+//app.get('/auth/google', passport.authenticate('google', {session: false,scope: ['profile','email'] }));
 
+app.get('/auth/google', (req, res) => {
+  const authUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${process.env.GOOGLE_CLIENT_ID}&redirect_uri=${process.env.FRONTEND_URL}/auth/callback&response_type=code&scope=email%20profile`;
 
+  console.log("OAuth URL: ", authUrl);  // Check this in server logs
+  res.redirect(authUrl);
+});
 app.get(
   "/auth/google/callback",
   passport.authenticate("google", {
