@@ -17,4 +17,4 @@ Real-time Communication: Socket.IO
 
 Database: MongoDB (Mongoose)
 
-Authentication: JWT 
+Authentication: JWT,OAuth using passport.js
