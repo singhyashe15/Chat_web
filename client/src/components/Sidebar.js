@@ -3,7 +3,6 @@ import { NavLink} from 'react-router-dom';
 import Avatar from './Avatar'
 import { useSelector } from 'react-redux';
 import EditUserDetails from './EditUserDetails';
-import { FiArrowUpLeft } from "react-icons/fi";
 import UserSearchCard from './UserSearchCard';
 import toast from 'react-hot-toast';
 import axios from 'axios';
@@ -19,7 +18,6 @@ const Sidebar = () => {
     const [allUser,setAllUser] = useState([])
     const [search,setSearch] = useState("")
     const [searchUser,setSearchUser] = useState([])
-   
     const { socket} = useSocket();
     const inputref = useRef()
    
@@ -55,17 +53,23 @@ const Sidebar = () => {
 
     const handleSearchUser = useCallback(async () => {
         const URL = `${process.env.REACT_APP_BACKEND_URL}/api/search-user`
-        try {
+        try{
             const response = await axios.post(URL, { search });
-            setSearchUser(response.data.data);
-        } catch (error) {
-            toast.error(error?.response?.data?.message);
+            console.log(response.data.message)
+            if(response.data.data.length !== 0){
+                setSearchUser(response.data.data);
+            }else{
+                setSearchUser([]);
+            }
+        }catch(error){
+            toast.error("Some error occured" + error.message)
         }
+       
     }, [search]);
     
     useEffect(() => {
-        handleSearchUser();
-    }, [search, handleSearchUser]);
+       handleSearchUser()
+    }, [search]);
 
    
     const setclose = ()=>{
@@ -91,7 +95,7 @@ const Sidebar = () => {
                         />
                     </div>
                     <div className='h-16 flex items-center'>
-                        <h2 className='text-xl font-bold p-4 text-slate-800'>Chat Wave</h2>
+                        <p className='text-xl  p-4 text-slate-800'  style={{fontFamily: "cursive"}}>Chatify</p>
                     </div>
                 </div>
                     <div className='h-12 w-12 mt-4 bg-slate-800 rounded-full flex items-center justify-center'>
@@ -135,19 +139,14 @@ const Sidebar = () => {
                             })
                         )
                     }
+                    
                     {
-                        allUser.length === 0  && (
+                        searchUser.length === 0  && (
                             <div className='mt-12'>
-                                <div className='flex justify-center items-center my-4 text-slate-500'>
-                                    <FiArrowUpLeft
-                                        size={50}
-                                    />
-                                </div>
-                                <p className='text-lg text-center text-slate-400'>Explore users to start a conversation with.</p>    
+                                <p className='text-lg text-center text-slate-400'>Not Found!!</p>    
                             </div>
                         )
                     }
-
                     {
                       searchUser.length === 0 && allUser.map((conv,index)=>{
                        
