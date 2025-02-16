@@ -44,7 +44,7 @@ app.get(
       sameSite: 'Strict',
     });
     
-    res.redirect(`${process.env.Fronted_Url}/authemail`); // Redirect to frontend
+    res.redirect(`${process.env.Fronted_Url}/authEmail`); // Redirect to frontend
   }
 );
 
