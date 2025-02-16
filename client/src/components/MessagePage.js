@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { useSelector,useDispatch } from 'react-redux'
+import { logout,setOnlineUser } from '../redux/userSlice'
+import { Link, useParams,useNavigate } from 'react-router-dom'
 import Avatar from './Avatar'
 import { HiDotsVertical } from "react-icons/hi";
 import { FaPaperclip } from "react-icons/fa";
@@ -13,12 +14,16 @@ import moment from 'moment'
 import { useSocket } from '../socket/socket';
 import toast from 'react-hot-toast';
 import {Spinner} from '@chakra-ui/react'
+import { BiLogOut } from 'react-icons/bi';
 
 const MessagePage = () => {
-  const params = useParams()
+   const params = useParams()
   const { socket} = useSocket();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const user = useSelector(state => state?.user)
   const [del,setdelete] = useState(false)
+  const  [show,setshow] = useState(false)
   const [currentmsg,setcurrentmsg] = useState("");
   const [index,setindex] = useState(0)
   const [loading,setLoading] = useState(false)
@@ -172,7 +177,20 @@ const MessagePage = () => {
     toast.success("Deleted for me successfully")
     setdelete(prev => !prev)
   }
-
+  // handle logout
+   const handlelogout = ()=>{
+    console.log("logout")
+          const data = user.onlineUser.filter((item) => 
+              item !== user._id
+          )
+          if(socket){
+              socket.emit('online',user._id)
+          }
+          dispatch(setOnlineUser(data))
+          dispatch(logout())
+          navigate("/login")
+          localStorage.clear()
+    }
 //style={{ backgroundImage : `url(${wallpaper})`}}
   return (<>
       
@@ -201,10 +219,19 @@ const MessagePage = () => {
                      </p>
                   </div>
               </div>
-              <div >
-                    <button className='cursor-pointer hover:text-blue-500'>
+              <div className="relative" >
+                    <button className='cursor-pointer hover:text-blue-500' onClick={()=>setshow(!show)}>
                       <HiDotsVertical/>
                     </button>
+                    {show &&  
+                    <div className="absolute top-full right-0 -mt-4 mr-8 bg-slate-700 text-white hover:bg-slate-600 rounded-lg shadow-lg p-2" onClick={handlelogout}>
+                      <button className='flex items-center gap-2  px-3 py-2 rounded-md cursor-pointer' >
+                        <span className='-ml-2'>
+                          <BiLogOut size={20} />
+                        </span>
+                      </button>
+                    </div>
+                    }
               </div>
           </header>
 
