@@ -61,7 +61,7 @@ const CheckEmailPage = () => {
 // sm:w-48 md:w-64 lg
   return (
     <div className='w-full h-full flex items-center justify-center' >
-        <div className='h-96 w-full max-w-md border-2 border-blue-900 rounded-[3.25rem] overflow-hidden p-4 mt-24 '>
+        <div className='h-auto w-full max-w-md border-2 border-blue-900 rounded-[3.25rem] overflow-hidden p-4 mt-24 '>
             <div className='w-fit mx-auto mb-2  -mt-4'>
                 <PiUserCircle
                   size={80}
@@ -105,7 +105,7 @@ const CheckEmailPage = () => {
           <div className=' text-center'>New User ?<Link to={"/register"} className='hover:text-green-500 font-semibold'>Register</Link></div>
           </div>
           
-          <div onClick={handle} className="flex justify-center gap-2 px-4 py-2 bg-white border border-black rounded-md shadow-md hover:shadow-lg transition duration-300 cursor-pointer">
+          <div onClick={handle} className="flex justify-center gap-2 px-4 py-2 mb-4 bg-white border border-black rounded-md shadow-md hover:shadow-lg transition duration-300 cursor-pointer">
             <FaGoogle className="text-red-500 mt-1"/>
             <span className="text-gray-700 font-medium">Sign in with Google</span>
           </div>
