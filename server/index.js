@@ -41,6 +41,7 @@ app.get(
    
     res.cookie('token',accessToken,{
       httpOnly: true,  // Prevents client-side access for security
+      secure:process.env.NODE_ENV === "production",
       sameSite: 'Strict',
     });
     
