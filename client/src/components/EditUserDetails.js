@@ -160,7 +160,7 @@ const EditUserDetails = ({onClose,user}) => {
                     <input
                         name='quotes'
                         id='name'
-                        placeholder='About'
+                        placeholder='Add your About Here!!'
                         value={data?.quotes || ''}
                         onChange={handleOnChange}
                         className= 'py-1 px-2  border-0.5 bg-transparent text-white outline-none'
