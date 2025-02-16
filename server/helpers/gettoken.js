@@ -3,7 +3,7 @@
 const GetToken = async (req, res) => {
 
   const token = req.cookies.token;
-  console.log("token get ", token)
+  console.log("token get ", req.cookies.token)
   if (token) {
     res.status(200).json({ token });
   } else {
