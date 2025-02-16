@@ -6,7 +6,9 @@ import Home from "../pages/Home";
 import MessagePage from "../components/MessagePage";
 import Forgotpassword from "../pages/Forgotpassword";
 import VerifyEmail from "../pages/verifyEmail";
+import AuthEmail from "../pages/authEmail";
 import Routers from "./router";
+
 const router = createBrowserRouter([
 {
     path : "/",
@@ -27,6 +29,10 @@ const router = createBrowserRouter([
         {
             path : "verifyemail",
             element :<VerifyEmail/>
+        },
+        {
+            path : "authEmail",
+            element :<AuthEmail/>
         },
         {    
             path : "",
