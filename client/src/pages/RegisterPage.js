@@ -133,34 +133,21 @@ const RegisterPage = () => {
                 />
               </div>
 
-              <div className='flex flex-col gap-1'>
+                <div className='flex flex-col gap-1' >
                   <div className='h-14 bg-transparent flex justify-center items-center border rounded-full hover:border-blue-700 cursor-pointer'>
-                      <p className='text-lg italic font-bold max-w-[300px] text-ellipsis line-clamp-1'>
-                        {
-                          uploadPhoto?.name ? uploadPhoto?.name : "Upload profile photo"
-                        }
-                      </p>
-                      {
-                        uploadPhoto?.name && (
-                          <button className='text-lg ml-2 hover:text-red-600 ' onClick={handleClearUploadPhoto}>
-                            <IoClose/>
-                          </button>
-                        )
-                      }
-                      
+                      <input
+                          type='file'
+                          id='profile_pic'
+                          name='profile_pic'
+                          className=' px-2 py-1 '
+                          onChange={handleUploadPhoto}
+                      />
                   </div>
-                <input
-                  type='file'
-                  id='profile_pic'
-                  name='profile_pic'
-                  className=' px-2 py-1 hidden '
-                  onChange={handleUploadPhoto}
-                />
               </div>
 
 
               <Button colorScheme='cyan' px-4 py-1 mt-2 onClick={handleSubmit} >
-                Register
+                Register Here
               </Button>
 
           </form>
